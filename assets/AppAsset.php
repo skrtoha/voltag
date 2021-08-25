@@ -28,6 +28,10 @@ class AppAsset extends AssetBundle
         'assets/front/slitslider/css/custom.css',
         'assets/front/bootstrap/css/bootstrap.css',
         'assets/front/css/site.css',
+        'assets/front/icomoon/icomoon.eot',
+        'assets/front/icomoon/icomoon.svg',
+        'assets/front/icomoon/icomoon.ttf',
+        'assets/front/icomoon/icomoon.woff'
     ];
     public $js = [
         'assets/front/bootstrap/js/bootstrap.js',
@@ -36,6 +40,7 @@ class AppAsset extends AssetBundle
         'assets/front/slitslider/js/modernizr.custom.79639.js',
         'assets/front/slitslider/js/jquery.ba-cond.min.js',
         'assets/front/slitslider/js/jquery.slitslider.js',
+        'assets/front/main.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

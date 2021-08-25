@@ -13,4 +13,13 @@ class Helper{
         }
         echo '<script>console.log('.json_encode($ar).');</script>';
     }
+    
+    public static function randomFileName($extension = false){
+        $extension = $extension ? '.' . $extension : '';
+        do {
+            $name = md5(microtime() . rand(0, 1000));
+            $file = $name . $extension;
+        } while (file_exists($file));
+        return $file;
+    }
 }

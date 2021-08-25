@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%brend}}".
@@ -26,11 +27,9 @@ class Brend extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'title'], 'required'],
-            [['id'], 'integer'],
+            [['title'], 'required'],
             [['title'], 'string', 'max' => 255],
             [['title'], 'unique'],
-            [['id'], 'unique'],
         ];
     }
 
@@ -43,5 +42,14 @@ class Brend extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
         ];
+    }
+    
+    public static function getList($params = []){
+        static $output;
+        if (!$output){
+            $result = Brend::find()->asArray()->all();
+            $output = ArrayHelper::map($result, 'id', 'title');
+        }
+        return $output;
     }
 }

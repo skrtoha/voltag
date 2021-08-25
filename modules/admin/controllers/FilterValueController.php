@@ -2,19 +2,17 @@
 
 namespace app\modules\admin\controllers;
 
-use app\models\Category;
 use app\models\Filter;
 use Yii;
 use app\models\FilterValue;
 use app\models\FilterValueSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * FilterValueController implements the CRUD actions for FilterValue model.
  */
-class FilterValueController extends Controller
+class FilterValueController extends CommonController
 {
     /**
      * {@inheritdoc}

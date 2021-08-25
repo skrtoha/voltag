@@ -6,14 +6,13 @@ use app\models\Category;
 use Yii;
 use app\models\Filter;
 use app\models\FilterSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * FilterController implements the CRUD actions for Filter model.
  */
-class FilterController extends Controller
+class FilterController extends CommonController
 {
     /**
      * {@inheritdoc}

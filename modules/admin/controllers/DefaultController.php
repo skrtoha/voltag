@@ -1,8 +1,5 @@
 <?php
-
 namespace app\modules\admin\controllers;
-
-use app\controllers\CommonController;
 
 class DefaultController extends CommonController
 {

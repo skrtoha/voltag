@@ -9,7 +9,7 @@ class AdminAsset extends \yii\web\AssetBundle
         'assets/admin/css/plugins/simple-line-icons.css',
         'assets/admin/css/plugins/animate.min.css',
         'assets/admin/css/plugins/fullcalendar.min.css',
-        'assets/admin/css/style.css'
+        'assets/admin/css/style.css',
     ];
     public $js = [
         'assets/admin/js/jquery.ui.min.js',
@@ -21,8 +21,8 @@ class AdminAsset extends \yii\web\AssetBundle
         'assets/admin/js/plugins/maps/jquery.vmap.world.js',
         'assets/admin/js/plugins/jquery.vmap.sampledata.js',
         'assets/admin/js/plugins/chart.min.js',
-        'https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js',
-        'https://oss.maxcdn.com/respond/1.4.2/respond.min.js',
+//        'https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js',
+//        'https://oss.maxcdn.com/respond/1.4.2/respond.min.js',
         'assets/admin/js/main.js'
     ];
     public $depends = [

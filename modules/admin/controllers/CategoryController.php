@@ -2,17 +2,18 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\UploadForm;
+use app\models\UploadImage;
 use Yii;
 use app\models\Category;
 use app\models\CategorySearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
  */
-class CategoryController extends Controller
+class CategoryController extends CommonController
 {
     /**
      * {@inheritdoc}
@@ -40,6 +41,7 @@ class CategoryController extends Controller
 
         return $this->render('index', [
             'searchModel' => $searchModel,
+            'uploadForm' => new UploadForm(),
             'dataProvider' => $dataProvider,
             'mainCategories' => Category::getMain()
         ]);

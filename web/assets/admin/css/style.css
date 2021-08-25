@@ -6459,3 +6459,16 @@ ul li a:focus {
 #category-parent_id{
     margin-top: 0;
 }
+#popup{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    background: rgba(228, 238, 244, 0.75);
+}
+#popup img{
+    width: 75px;
+    height: 75px;
+}

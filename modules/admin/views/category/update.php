@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 
+/* @var $uploadForm \app\models\UploadForm */
 /* @var array $mainCategories */
 /* @var $this yii\web\View */
 /* @var $model app\models\Category */
@@ -13,7 +14,8 @@ $this->title = 'Редактирование категории: ' . $model->tit
 <div class="category-update panel-body">
     <?= $this->render('_form', [
         'model' => $model,
-        'mainCategories' => $mainCategories
+        'mainCategories' => $mainCategories,
+        'uploadForm' => $uploadForm
     ]) ?>
 
 </div>

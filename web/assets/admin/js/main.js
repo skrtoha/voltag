@@ -1,3 +1,7 @@
+function showGif(hide = true){
+    let display = hide ? 'flex' : 'none';
+    $('#gif').css('display', display);
+}
 (function (jQuery) {
 
     // Variable

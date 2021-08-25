@@ -618,6 +618,8 @@ AdminAsset::register($this);
     <span class="fa fa-bars"></span>
 </button>
 
+<div id="gif" style="display: none"><img src="/images/preload.gif" alt=""></div>
+
 <?php $this->endBody() ?>
 </body>
 </html>

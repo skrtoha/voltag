@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 
+/* @var $uploadForm \app\models\UploadForm */
 /* @var array $mainCategories */
 /* @var $this yii\web\View */
 /* @var $model app\models\Category */
@@ -15,7 +16,8 @@ $this->title = 'Создать категорию';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'mainCategories' => $mainCategories
+        'mainCategories' => $mainCategories,
+        'uploadForm' => $uploadForm
     ]) ?>
 
 </div>

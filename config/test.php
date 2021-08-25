@@ -10,7 +10,7 @@ return [
     'basePath' => dirname(__DIR__),
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset'
+        '@npm'   => '@app/node_modules'
     ],
     'language' => 'en-US',
     'components' => [

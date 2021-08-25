@@ -9,7 +9,7 @@ $config = [
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm'   => '@app/node_modules',
     ],
     'components' => [
         'request' => [
@@ -47,6 +47,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'catalog/<transliteration:[\w-]+>'=> 'catalog/category'
                 /*'<module:\w+>/<controller:w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'=> '<controller>/<action>'*/
             ],
