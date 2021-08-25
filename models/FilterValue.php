@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $title
+ * @property string $signment
  * @property int $filter_id
  * @property int $category_id
  *
@@ -33,7 +34,7 @@ class FilterValue extends \yii\db\ActiveRecord
         return [
             [['title', 'filter_id'], 'required'],
             [['filter_id'], 'integer'],
-            [['title'], 'string', 'max' => 255],
+            [['title', 'signment'], 'string', 'max' => 255],
             [['title', 'filter_id'], 'unique', 'targetAttribute' => ['title', 'filter_id']],
             [['filter_id'], 'exist', 'skipOnError' => true, 'targetClass' => Filter::className(), 'targetAttribute' => ['filter_id' => 'id']],
         ];
@@ -46,6 +47,7 @@ class FilterValue extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'signment' => 'Обозначение',
             'title' => 'Наименование',
             'filter_id' => 'Фильтр'
         ];
@@ -69,6 +71,39 @@ class FilterValue extends \yii\db\ActiveRecord
     public function getFilter()
     {
         return $this->hasOne(Filter::className(), ['id' => 'filter_id']);
+    }
+    
+    public static function getList($params = []){
+        $query = FilterValue::find()
+            ->from(['fv' => self::tableName()])
+            ->leftJoin(['f' => Filter::tableName()], "f.id = fv.filter_id")
+            ->andWhere(['f.enum' => 1])
+            ->select([
+                'fv.*',
+                'filter' => 'f.title'
+            ]);
+        foreach($params as $key => $value){
+            switch ($key){
+                case 'filter_id':
+                    $query->andWhere([$key => $value]);
+                    break;
+            }
+        }
+        $result = $query->asArray()->all();
+        
+        if (!$result) return [];
+        
+        $output = [];
+        foreach($result as $value){
+            $v = & $output[$value['filter_id']];
+            $v['title'] = $value['filter'];
+            $v['signment'] = $value['signment'];
+            $v['category_id'] = $value['category_id'];
+            $v['filter_id'] = $value['filter_id'];
+            $v['values'][$value['id']]['id'] = $value['id'];
+            $v['values'][$value['id']]['title'] = $value['title'];
+        }
+        return $output;
     }
     
     public function getFilterTitle(){

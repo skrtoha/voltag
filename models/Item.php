@@ -67,6 +67,10 @@ class Item extends \yii\db\ActiveRecord
         return $this->hasOne(Brend::className(), ['id' => 'brend_id']);
     }
     
+    public function getItemValue(){
+        return $this->hasMany(ItemValue::class, ['item_id' => 'id']);
+    }
+    
     public function getBrendTitle(){
         $brendList = Brend::getList();
         return $brendList[$this->brend_id];

@@ -41,7 +41,7 @@ class FilterValueController extends CommonController
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'filterList' => Filter::getList()
+            'filterList' => Filter::getList(['enum' => 1])
         ]);
     }
 
@@ -75,7 +75,7 @@ class FilterValueController extends CommonController
         
         return $this->render('create', [
             'model' => $model,
-            'filterList' => Filter::getList()
+            'filterList' => Filter::getList(['enum' => 1])
         ]);
     }
 

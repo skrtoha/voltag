@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
+    
     <?= $form->field($model, 'filter_id')->dropDownList($filterList) ?>
 
     <div class="form-group">

@@ -1,2 +1,0 @@
-RewriteEngine on
-RewriteRule ^(.+)?$ http://134.249.158.237/voltag/web$1

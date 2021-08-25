@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 /* @var array $categoryList */
 /* @var $this yii\web\View */
+/* @var $model \app\models\Filter */
 /* @var $searchModel app\models\FilterSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -36,7 +37,10 @@ $this->title = 'Фильтры';
                 'template' => '{view} {update} {delete} {createFilterValue}',
                 'buttons' => [
                     'createFilterValue' => function($url, $model, $key){
-                        return Html::a('Создать значение', ['filter-value/create', 'filter_id' => $model->id]);
+                        if ($model->enum == 1){
+                            return Html::a('Создать значение', ['filter-value/create', 'filter_id' => $model->id]);
+                        }
+                        return '';
                     }
                 ]
             ],

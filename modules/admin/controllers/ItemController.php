@@ -3,6 +3,8 @@
 namespace app\modules\admin\controllers;
 
 use app\models\Brend;
+use app\models\FilterValue;
+use app\models\ItemValue;
 use app\models\UploadForm;
 use Yii;
 use app\models\Item;
@@ -91,6 +93,7 @@ class ItemController extends CommonController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $itemValues = ItemValue::getQuery(['item_id' => $id])->asArray()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -98,6 +101,10 @@ class ItemController extends CommonController
         
         return $this->render('update', [
             'model' => $model,
+            'filterValues' => FilterValue::getList([
+                'filter_id' => array_column($itemValues, 'filter_id')
+            ]),
+            'itemValues' => $itemValues,
             'uploadForm' => new UploadForm(),
             'brendList' => Brend::getList()
         ]);
@@ -117,11 +124,10 @@ class ItemController extends CommonController
         return $this->redirect(['index']);
     }
     
-    protected function findModel($id)
-    {
-        if (($model = Item::findOne($id)) !== null) {
-            return $model;
-        }
+    protected function findModel($id){
+        $model = Item::find()->with('itemValue')->where(['id' => $id])->one();
+        
+        if ($model) return $model;
         
         throw new NotFoundHttpException('The requested page does not exist.');
     }

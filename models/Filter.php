@@ -10,7 +10,10 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $title
+ * @property string $signment
+ * @property string $measure_string
  * @property int $category_id
+ * @property int $enum
  *
  * @property Category $category
  */
@@ -31,8 +34,8 @@ class Filter extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'category_id'], 'required'],
-            [['category_id'], 'integer'],
-            [['title'], 'string', 'max' => 255],
+            [['category_id', 'enum'], 'integer'],
+            [['title', 'measure_string', 'signment'], 'string', 'max' => 255],
             [['category_id', 'title'], 'unique', 'targetAttribute' => ['category_id', 'title']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
@@ -46,7 +49,10 @@ class Filter extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Наименование',
+            'signment' => 'Обозначение',
+            'measure_string' => 'Единица измерения',
             'category_id' => 'Категория',
+            'enum' => 'Является списком'
         ];
     }
 
@@ -62,14 +68,20 @@ class Filter extends \yii\db\ActiveRecord
     
     public static function getList($params = []){
         static $output;
-        if (!$output){
-            $result = self::find()
-                ->select(['id', 'title'])
-                ->orderBy('title')
-                ->asArray()
-                ->all();
-            $output = ArrayHelper::map($result, 'id', 'title');
+        if ($output) return $output;
+        $query = self::find()
+            ->select(['id', 'title'])
+            ->orderBy('title');
+            
+        foreach($params as $key => $value){
+            switch($key){
+                case 'enum':
+                    $query->andWhere([$key => $value]);
+                    break;
+            }
         }
+        $result = $query->asArray()->all();
+        $output = ArrayHelper::map($result, 'id', 'title');
         return $output;
     }
     

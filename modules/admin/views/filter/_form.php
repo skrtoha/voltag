@@ -14,8 +14,14 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'signment')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'measure_string')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'category_id')->dropDownList($categoryList) ?>
+    
+    <?= $form->field($model, 'enum')->checkbox()?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

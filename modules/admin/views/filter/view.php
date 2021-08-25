@@ -34,8 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model){
                     return $model->getCategoryTitle();
                 }
+            ],
+            'signment',
+            'measure_string',
+            [
+                'attribute' => 'enum',
+                'value' => function($model){
+                    return $model->enum == 1 ? 'Да' : 'Нет';
+                }
             ]
-        ],
+        ]
     ]) ?>
 
 </div>

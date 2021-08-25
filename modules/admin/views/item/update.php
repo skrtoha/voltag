@@ -4,7 +4,9 @@ use yii\helpers\Html;
 
 /* @var $uploadForm \app\models\UploadForm */
 /* @var array $brendList */
+/* @var array $filterValues */
 /* @var $this yii\web\View */
+/* @var $itemValues \app\models\ItemValue */
 /* @var $model app\models\Category */
 
 $this->title = 'Обновить: ' . $model->title;
@@ -14,6 +16,8 @@ $this->title = 'Обновить: ' . $model->title;
     <?= $this->render('_form', [
         'model' => $model,
         'brendList' => $brendList,
+        'filterValues' => $filterValues,
+        'itemValues' => $itemValues,
         'uploadForm' => $uploadForm
     ]) ?>
 </div>
