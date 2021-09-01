@@ -74,19 +74,38 @@ class FilterValue extends \yii\db\ActiveRecord
     }
     
     public static function getList($params = []){
-        $query = FilterValue::find()
-            ->from(['fv' => self::tableName()])
-            ->leftJoin(['f' => Filter::tableName()], "f.id = fv.filter_id")
-            ->andWhere(['f.enum' => 1])
+        $query = Filter::find()
+            ->from(['f' => Filter::tableName()])
+            ->leftJoin(['fv' => FilterValue::tableName()], "f.id = fv.filter_id")
+            ->leftJoin(['c' => Category::tableName()], "c.id = f.category_id")
             ->select([
-                'fv.*',
-                'filter' => 'f.title'
+                'filter_id' => 'f.id',
+                'filter' => 'f.title',
+                'filter_value_id' => 'fv.id',
+                'filter_value' => 'fv.title',
+                'f.category_id',
+                'f.signment',
+                'f.enum',
+                'f.measure_string',
+                'category' => 'c.title'
             ]);
         foreach($params as $key => $value){
             switch ($key){
                 case 'filter_id':
-                    $query->andWhere([$key => $value]);
+                    $query->andWhere(['f.id' => $value]);
                     break;
+                case 'category_id':
+                    $query->andWhere(['f.category_id' => $value]);
+                    break;
+                case 'item_id':
+                    $query->addSelect([
+                        'iv.item_id',
+                        'selected_filter_value_id' => 'iv.filter_value_id',
+                        'iv.value'
+                    ]);
+                    $query->leftJoin(['iv' => ItemValue::tableName()], "
+                        (iv.filter_id = f.id OR iv.filter_value_id = fv.id) AND iv.item_id = $value
+                    ");
             }
         }
         $result = $query->asArray()->all();
@@ -94,14 +113,27 @@ class FilterValue extends \yii\db\ActiveRecord
         if (!$result) return [];
         
         $output = [];
-        foreach($result as $value){
-            $v = & $output[$value['filter_id']];
-            $v['title'] = $value['filter'];
-            $v['signment'] = $value['signment'];
-            $v['category_id'] = $value['category_id'];
-            $v['filter_id'] = $value['filter_id'];
-            $v['values'][$value['id']]['id'] = $value['id'];
-            $v['values'][$value['id']]['title'] = $value['title'];
+        foreach($result as $row){
+            $v = & $output[$row['filter_id']];
+            $v['title'] = $row['filter'];
+            $v['signment'] = $row['signment'];
+            $v['category_id'] = $row['category_id'];
+            $v['filter_id'] = $row['filter_id'];
+            $v['enum'] = $row['enum'];
+            if (isset($row['item_id']) && $row['item_id']){
+                $v['value'] = $row['value'] ?: '';
+            }
+            
+            if ($row['enum']){
+                $array = [
+                    'id' => $row['filter_value_id'],
+                    'title' => $row['filter_value']
+                ];
+                if (isset($params['item_id']) && $params['item_id']){
+                    $array['selected'] = $row['selected_filter_value_id'] == $row['filter_value_id'] ? 1 : 0;
+                }
+                $v['values'][$row['filter_value_id']] = $array;
+            }
         }
         return $output;
     }

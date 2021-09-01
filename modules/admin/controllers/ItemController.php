@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use app\models\Brend;
+use app\models\Category;
 use app\models\FilterValue;
 use app\models\ItemValue;
 use app\models\UploadForm;
@@ -44,7 +45,8 @@ class ItemController extends CommonController
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'brendList' => Brend::getList()
+            'brendList' => Brend::getList(),
+            'categoryList' => Category::getCommonList()
         ]);
     }
 
@@ -56,12 +58,30 @@ class ItemController extends CommonController
      */
     public function actionView($id)
     {
+        $temp = FilterValue::getList(['item_id' => $id]);
+        $itemValues = [];
+        foreach($temp as $row){
+            if (!isset($row['value'])) continue;
+            if ($row['enum']){
+                foreach($row['values'] as $r){
+                    if (!$r['selected']) continue;
+                    $itemValues[$row['title']] = $r['title'];
+                }
+            } else $itemValues[$row['title']] = $row['value'];
+        }
         return $this->render('view', [
-            'model' => $this->findItem($id)
+            'item' => $this->findItem($id),
+            'itemValues' => $itemValues
         ]);
     }
     
-    
+    private function saveItem($data){
+        if ($data['id']) $model = $this->findModel($data['id']);
+        else $model = new Item();
+        $model->attributes = $data;
+        if ($model->save()) return $model->id;
+        return false;
+    }
 
     /**
      * Creates a new Item model.
@@ -70,15 +90,16 @@ class ItemController extends CommonController
      */
     public function actionCreate()
     {
-        $model = new Item();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if (Yii::$app->request->post('Item')){
+            $item_id = $this->saveItem(Yii::$app->request->post('Item'));
+            if ($item_id) return $this->redirect(['update', 'id' => $item_id]);
         }
-
+        
+        $model = new Item();
         return $this->render('create', [
             'model' => $model,
             'uploadForm' => new UploadForm(),
+            'categoryList' => Category::getCommonList(),
             'brendList' => Brend::getList()
         ]);
     }
@@ -92,21 +113,35 @@ class ItemController extends CommonController
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $itemValues = ItemValue::getQuery(['item_id' => $id])->asArray()->all();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $postData = Yii::$app->request->post('Item');
+        if ($postData){
+            $postData['id'] = $id;
+            $this->saveItem($postData);
         }
         
+        if (!empty(Yii::$app->request->post('ItemValue'))){
+            ItemValue::deleteAll(['item_id' => $id]);
+            foreach(Yii::$app->request->post('ItemValue') as $filter_id => $value){
+                if (!$value['value']) continue;
+                $itemValue = new ItemValue();
+                $itemValue->item_id = $id;
+                $itemValue->filter_id = $filter_id;
+                if ($value['enum']) $itemValue->filter_value_id = $value['value'];
+                else $itemValue->value = $value['value'];
+                $itemValue->save();
+            }
+        }
+    
+        $model = $this->findModel($id);
         return $this->render('update', [
             'model' => $model,
             'filterValues' => FilterValue::getList([
-                'filter_id' => array_column($itemValues, 'filter_id')
+                'category_id' => $model->category_id,
+                'item_id' => $id
             ]),
-            'itemValues' => $itemValues,
             'uploadForm' => new UploadForm(),
-            'brendList' => Brend::getList()
+            'brendList' => Brend::getList(),
+            'categoryList' => Category::getCommonList()
         ]);
     }
 

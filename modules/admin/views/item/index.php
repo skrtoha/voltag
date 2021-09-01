@@ -5,9 +5,11 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 
 /* @var array $brendList */
+/* @var array $categoryList */
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ItemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model \app\models\Item */
 
 $this->title = 'Товары';
 ?>
@@ -34,6 +36,13 @@ $this->title = 'Товары';
                 }
             ],
             'article',
+            [
+                'attribute' => 'category_id',
+                'filter' => $categoryList,
+                'value' => function($model){
+                    return $model->getCategoryTitle();
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

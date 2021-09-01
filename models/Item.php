@@ -11,6 +11,7 @@ use Yii;
  * @property string $title
  * @property int|null $brend_id
  * @property string $article
+ * @property string $category_id
  *
  * @property Brend $brend
  */
@@ -31,7 +32,7 @@ class Item extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'article'], 'required'],
-            [['brend_id'], 'integer'],
+            [['brend_id', 'category_id'], 'integer'],
             [['title', 'article'], 'string', 'max' => 255],
             [['brend_id', 'article'], 'unique', 'targetAttribute' => ['brend_id', 'article']],
             [['brend_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brend::className(), 'targetAttribute' => ['brend_id' => 'id']],
@@ -54,6 +55,7 @@ class Item extends \yii\db\ActiveRecord
             'title' => 'Наименование',
             'brend_id' => 'Бренд',
             'article' => 'Артикул',
+            'category_id' => 'Категория'
         ];
     }
 
@@ -76,6 +78,11 @@ class Item extends \yii\db\ActiveRecord
         return $brendList[$this->brend_id];
     }
     
+    public function getCategoryTitle(){
+        $categoryList = Category::getCommonList();
+        return $categoryList[$this->category_id];
+    }
+    
     public static function getQuery(){
         return self::find()
             ->select([
@@ -83,9 +90,12 @@ class Item extends \yii\db\ActiveRecord
                 'title' => 'i.title',
                 'i.brend_id',
                 'brend' => 'b.title',
-                'i.article'
+                'i.article',
+                'i.category_id',
+                'category' => 'c.title'
             ])
             ->from(['i' => Item::tableName()])
-            ->leftJoin(['b' => Brend::tableName()], "b.id = i.brend_id");
+            ->leftJoin(['b' => Brend::tableName()], "b.id = i.brend_id")
+            ->leftJoin(['c' => Category::tableName()], "c.id = i.category_id");
     }
 }

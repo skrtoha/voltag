@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $brendList */
+/* @var $brendList array*/
+/* @var $categoryList array*/
 /* @var $this yii\web\View */
 /* @var \app\models\UploadForm $uploadForm */
 /* @var $model app\models\Item */
@@ -19,6 +20,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'brend_id')->dropDownList($brendList) ?>
+    
+    <?= $form->field($model, 'category_id')->dropDownList($categoryList) ?>
 
     <?= $form->field($model, 'article')->textInput(['maxlength' => true]) ?>
 
@@ -26,35 +29,35 @@ use yii\widgets\ActiveForm;
         <?=Html::button('Загрузить изображение', ['class' => 'uploadFile'])?>
     </div>
     
-    <h3>Фильтры</h3>
-    
-    <?if ($itemValues){
-        foreach($itemValues as $itemValue){?>
+    <?if ($filterValues){?>
+        <h3>Фильтры</h3>
+        <?foreach($filterValues as $row){?>
             <div class="form-group">
-                <?if ($itemValue['enum'] == 0){?>
-                    <label class="control-label" for="ItemValue_<?=$itemValue['filter_id']?>">
-                        <?=$itemValue['filter']?>
+                <input type="hidden" name="ItemValue[<?=$row['filter_id']?>][enum]?>" value="<?=$row['enum']?>">
+                <?if ($row['enum'] == 0){?>
+                    <label class="control-label" for="ItemValue_<?=$row['filter_id']?>">
+                        <?=$row['title']?>
                     </label>
                     <input
-                        id="ItemValue_<?=$itemValue['filter_id']?>"
+                        id="ItemValue_<?=$row['filter_id']?>"
                         type="text"
                         class="form-control"
-                        name="ItemValue[<?=$itemValue['filter_id']?>]"
-                        value="<?=$itemValue['value']?>"
+                        name="ItemValue[<?=$row['filter_id']?>][value]"
+                        value="<?=$row['value']?>"
                     >
                 <?}
                 else{?>
-                    <label for="ItemValue_<?=$itemValue['filter_id']?>">
-                        <?=$itemValue['filter']?>
+                    <label for="ItemValue_<?=$row['filter_id']?>">
+                        <?=$row['title']?>
                     </label>
                     <select
-                        name="ItemValue[<?=$itemValue['filter_id']?>]"
-                        id="ItemValue_<?=$itemValue['filter_id']?>"
+                        name="ItemValue[<?=$row['filter_id']?>][value]?>"
+                        id="ItemValue_<?=$row['filter_id']?>"
                         class="form-control"
                     >
                         <option value="">...выберите</option>
-                        <?foreach($filterValues[$itemValue['filter_id']]['values'] as $filter_id => $value){
-                            $selected = $itemValue['filter_value_id'] == $value['id'] ? 'selected' : '';?>
+                        <?foreach($row['values'] as $value){
+                            $selected = $value['selected'] ? 'selected' : '';?>
                             <option <?=$selected?> value="<?=$value['id']?>"><?=$value['title']?></option>
                         <?}?>
                     </select>

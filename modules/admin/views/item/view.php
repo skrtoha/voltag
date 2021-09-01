@@ -4,16 +4,17 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Item */
+/* @var $item app\models\Item */
+/* @var $itemValues app\models\ItemValue */
 
-$this->title = $model->title;
+$this->title = $item->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <?=$this->render('/common/pannel-title', ['title' => $this->title])?>
 <div class="item-view panel-body">
     <p>
-        <?= Html::a('Обновить', ['update', 'id' => $model['id']], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model['id']], [
+        <?= Html::a('Обновить', ['update', 'id' => $item['id']], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $item['id']], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -23,7 +24,7 @@ $this->title = $model->title;
     </p>
 
     <?= DetailView::widget([
-        'model' => $model,
+        'model' => $item,
         'attributes' => [
             'id',
             'title',
@@ -37,5 +38,11 @@ $this->title = $model->title;
             'article',
         ],
     ]) ?>
+    
+    <h3>Фильтры</h3>
+    
+    <?=DetailView::widget([
+        'model' => $itemValues
+    ])?>
 
 </div>
