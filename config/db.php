@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=voltag',
-    'username' => 'root',
-    'password' => '',
+    'dsn' => 'mysql:host=mysql54.hostland.ru;dbname=host1834753_voltag',
+    'username' => 'host1834753',
+    'password' => 'JlzPioGd3v',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)

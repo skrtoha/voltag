@@ -65,4 +65,9 @@ class Cross extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Brend::className(), ['id' => 'brend_id']);
     }
+    
+    public function getBrendTitle(){
+        $brendList = Brend::getList();
+        return $brendList[$this->brend_id];
+    }
 }
