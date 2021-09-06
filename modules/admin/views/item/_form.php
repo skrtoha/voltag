@@ -66,6 +66,11 @@ use yii\widgets\ActiveForm;
         <?}
     }?>
     
+    <h2>Кроссы</h2>
+    <div class="form-group">
+        <a href="#" id="add_cross">Добавить</a>
+    </div>
+    
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
@@ -74,4 +79,5 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+    <script src="/assets/admin/js/main.js"></script>
 <?=$this->render('/common/upload-image', ['model' => $uploadForm]);
