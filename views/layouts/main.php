@@ -14,7 +14,6 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <base href="http://134.249.158.237/voltag/web/">
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,7 +57,7 @@ AppAsset::register($this);
 <div class="container">
     <!-- Header Starts -->
     <div class="header">
-        <a class="pull-left" href="/"><img src="images/logo.png" alt="Realestate"></a>
+        <a class="pull-left" href="/"><img src="/images/logo.png" alt="Realestate"></a>
         <div class="center">
             <form action="<?=Url::to(['catalog/search'])?>" id="search">
                 <input type="text" name="search">
@@ -103,14 +102,14 @@ AppAsset::register($this);
 
             <div class="col-lg-4 col-sm-4">
                 <h4>Follow us</h4>
-                <a href="#"><img src="images/facebook.png" alt="facebook"></a>
-                <a href="#"><img src="images/twitter.png" alt="twitter"></a>
-                <a href="#"><img src="images/linkedin.png" alt="linkedin"></a>
-                <a href="#"><img src="images/instagram.png" alt="instagram"></a>
+                <a href="#"><img src="/images/facebook.png" alt="facebook"></a>
+                <a href="#"><img src="/images/twitter.png" alt="twitter"></a>
+                <a href="#"><img src="/images/linkedin.png" alt="linkedin"></a>
+                <a href="#"><img src="/images/instagram.png" alt="instagram"></a>
                 <div class="payments">
-                    <img src="images/mc-logo.png" alt="">
-                    <img src="images/mir-logo.png" alt="">
-                    <img src="images/visa-logo.png" alt="">
+                    <img src="/images/mc-logo.png" alt="">
+                    <img src="/images/mir-logo.png" alt="">
+                    <img src="/images/visa-logo.png" alt="">
                 </div>
             </div>
 

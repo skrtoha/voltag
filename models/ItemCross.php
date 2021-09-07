@@ -5,7 +5,11 @@ namespace app\models;
 use Yii;
 
 /**
+<<<<<<< HEAD
  * This is the model class for table "item_cross".
+=======
+ * This is the model class for table "{{%item_cross}}".
+>>>>>>> 37630d3a89fbd5313b0b94017cd92ff76403d405
  *
  * @property int $item_id
  * @property int $cross_id
@@ -21,7 +25,11 @@ class ItemCross extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
+<<<<<<< HEAD
         return 'item_cross';
+=======
+        return '{{%item_cross}}';
+>>>>>>> 37630d3a89fbd5313b0b94017cd92ff76403d405
     }
 
     /**

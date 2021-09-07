@@ -4,7 +4,9 @@ namespace app\modules\admin\controllers;
 
 use app\models\Brend;
 use app\models\Category;
+use app\models\Cross;
 use app\models\FilterValue;
+use app\models\ItemCross;
 use app\models\ItemValue;
 use app\models\UploadForm;
 use Yii;
@@ -118,9 +120,9 @@ class ItemController extends CommonController
             $postData['id'] = $id;
             $this->saveItem($postData);
         }
-        
+    
+        ItemValue::deleteAll(['item_id' => $id]);
         if (!empty(Yii::$app->request->post('ItemValue'))){
-            ItemValue::deleteAll(['item_id' => $id]);
             foreach(Yii::$app->request->post('ItemValue') as $filter_id => $value){
                 if (!$value['value']) continue;
                 $itemValue = new ItemValue();
@@ -132,6 +134,18 @@ class ItemController extends CommonController
             }
         }
     
+        ItemCross::deleteAll(['item_id' => $id]);
+        if (!empty(Yii::$app->request->post('ItemCross'))){
+            ItemCross::deleteAll(['item_id' => $id]);
+            foreach(Yii::$app->request->post('ItemCross') as $cross_id){
+                if (!$cross_id) continue;
+                $itemCross = new ItemCross();
+                $itemCross->item_id = $id;
+                $itemCross->cross_id = $cross_id;
+                $itemCross->save();
+            }
+        }
+    
         $model = $this->findModel($id);
         return $this->render('update', [
             'model' => $model,
@@ -139,6 +153,8 @@ class ItemController extends CommonController
                 'category_id' => $model->category_id,
                 'item_id' => $id
             ]),
+            'crossList' => Cross::find()->all(),
+            'itemCrossList' => ItemCross::find()->where(['item_id' => $id])->all(),
             'uploadForm' => new UploadForm(),
             'brendList' => Brend::getList(),
             'categoryList' => Category::getCommonList()
