@@ -10,7 +10,13 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Item */
 /* @var $itemValues array */
 /* @var $filterValues array */
+/* @var $itemCrossList array */
+/* @var $crossList array */
+/* @var $itemCross \app\models\ItemCross */
 /* @var $form yii\widgets\ActiveForm */
+
+$this->registerJsFile('/assets/admin/js/item.js', ['depends' => ['app\assets\AdminAsset']]);
+$this->registerCssFile('/assets/admin/css/item.css')
 ?>
 
 <div class="item-form">
@@ -69,6 +75,12 @@ use yii\widgets\ActiveForm;
     <h2>Кроссы</h2>
     <div class="form-group">
         <a href="#" id="add_cross">Добавить</a>
+        <?foreach($itemCrossList as $itemCross){?>
+            <?=$this->render('/common/cross-item', [
+                'crossList' => $crossList,
+                'selected' => $itemCross->cross_id
+            ]);?>
+        <?}?>
     </div>
     
 
@@ -79,5 +91,4 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
-    <script src="/assets/admin/js/main.js"></script>
-<?=$this->render('/common/upload-image', ['model' => $uploadForm]);
+<?=$this->render('/common/upload-image', ['model' => $uploadForm]);?>

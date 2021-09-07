@@ -55,8 +55,6 @@ select{
   border-radius: 0px !important;
   border:1px solid #ddd;
   padding: 7px;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 label{ font-weight:400; }
@@ -384,7 +382,6 @@ p.quote{
    
     .search-v1 #search-v1-images .post { height: 100px; background: cyan; margin-bottom: 20px; }
     .search-v1 #search-v1-images .tall { height: 200px; }
-}
 /*end: search v1*/
 
 
@@ -1595,11 +1592,6 @@ ul li a:focus {
   .btn-flip {
     height: 50px !important;
     padding: 0px !important;
-    -webkit-perspective: 600;
-    -moz-perspective: 600;
-    -ms-perspective: 600;
-    -o-perspective: 600;
-    perspective: 600;
     position: relative;
     width: 150px !important;
   }
@@ -5090,11 +5082,6 @@ ul li a:focus {
   -ms-transition: -webkit-transform 0.2s ease-in;
   -o-transition: -webkit-transform 0.2s ease-in;
   transition: -webkit-transform 0.2s ease-in;
-  -webkit-transition: transform: 0.2s ease-in;
-  -moz-transition: transform: 0.2s ease-in;
-  -ms-transition: transform: 0.2s ease-in;
-  -o-transition: transform: 0.2s ease-in;
-  transition: transform: 0.2s ease-in;
 }
 
 .nav-tabs.nav-tabs-v1 li a:focus {
@@ -6354,10 +6341,6 @@ ul li a:focus {
   }
 
   .responsive-table td:before { content: attr(data-title); }
-
-  .search-nav{
-    display: none !Im;
-  }
 
   #quote-carousel .carousel-indicators {
     bottom: -20px !important;

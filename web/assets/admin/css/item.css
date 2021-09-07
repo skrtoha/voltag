@@ -1,0 +1,29 @@
+a#add_cross {
+    margin-right: 10px;
+}
+div.cross-item {
+    border: 1px solid #ddd;
+    background: white;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    padding-right: 20px;
+}
+
+.cross-item select{
+    border: none;
+    font-family: sans-serif;
+}
+.icon-close{
+    display: block;
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    top: 7px;
+    right: 3px;
+}
+.icon-close:before{
+    font-size: 17px;
+    color: red;
+    font-weight: 800;
+}
