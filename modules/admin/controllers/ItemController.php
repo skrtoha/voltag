@@ -121,7 +121,7 @@ class ItemController extends CommonController
             $this->saveItem($postData);
         }
     
-        ItemValue::deleteAll(['item_id' => $id]);
+        if ($postData) ItemValue::deleteAll(['item_id' => $id]);
         if (!empty(Yii::$app->request->post('ItemValue'))){
             foreach(Yii::$app->request->post('ItemValue') as $filter_id => $value){
                 if (!$value['value']) continue;
@@ -134,7 +134,7 @@ class ItemController extends CommonController
             }
         }
     
-        ItemCross::deleteAll(['item_id' => $id]);
+        if ($postData) ItemCross::deleteAll(['item_id' => $id]);
         if (!empty(Yii::$app->request->post('ItemCross'))){
             ItemCross::deleteAll(['item_id' => $id]);
             foreach(Yii::$app->request->post('ItemCross') as $cross_id){
