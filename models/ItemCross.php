@@ -25,11 +25,7 @@ class ItemCross extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-<<<<<<< HEAD
-        return 'item_cross';
-=======
         return '{{%item_cross}}';
->>>>>>> 37630d3a89fbd5313b0b94017cd92ff76403d405
     }
 
     /**
