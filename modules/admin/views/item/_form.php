@@ -75,12 +75,14 @@ $this->registerCssFile('/assets/admin/css/item.css')
     <h2>Кроссы</h2>
     <div class="form-group">
         <a href="#" id="add_cross">Добавить</a>
-        <?foreach($itemCrossList as $itemCross){?>
-            <?=$this->render('/common/cross-item', [
-                'crossList' => $crossList,
-                'selected' => $itemCross->cross_id
-            ]);?>
-        <?}?>
+        <?if (isset($itemCrossList)){
+            foreach($itemCrossList as $itemCross){?>
+                <?=$this->render('/common/cross-item', [
+                    'crossList' => $crossList,
+                    'selected' => $itemCross->cross_id
+                ]);?>
+            <?}
+        }?>
     </div>
     
 

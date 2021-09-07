@@ -6,6 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $item app\models\Item */
 /* @var $itemValues app\models\ItemValue */
+/* @var $itemCrossDataProvider array */
 
 $this->title = $item->title;
 \yii\web\YiiAsset::register($this);
@@ -43,6 +44,16 @@ $this->title = $item->title;
     
     <?=DetailView::widget([
         'model' => $itemValues
+    ])?>
+
+    <h3>Кроссы</h3>
+    
+    <?=\yii\grid\GridView::widget([
+        'dataProvider' => $itemCrossDataProvider,
+        'columns' => [
+            'brend',
+            'cross'
+        ]
     ])?>
 
 </div>

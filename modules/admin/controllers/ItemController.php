@@ -12,6 +12,8 @@ use app\models\UploadForm;
 use Yii;
 use app\models\Item;
 use app\models\ItemSearch;
+use yii\data\ActiveDataProvider;
+use yii\debug\models\timeline\DataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -71,9 +73,24 @@ class ItemController extends CommonController
                 }
             } else $itemValues[$row['title']] = $row['value'];
         }
+        
+        $query = ItemCross::find()
+            ->from(['ic' => ItemCross::tableName()])
+            ->select([
+                'cross' => 'c.title',
+                'brend' => 'b.title'
+            ])
+            ->leftJoin(['c' => Cross::tableName()], "c.id = ic.cross_id")
+            ->leftJoin(['b' => Brend::tableName()], "b.id = c.brend_id")
+            ->where(['ic.item_id' => $id]);
+        $itemCrossDataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+        
         return $this->render('view', [
             'item' => $this->findItem($id),
-            'itemValues' => $itemValues
+            'itemValues' => $itemValues,
+            'itemCrossDataProvider' => $itemCrossDataProvider
         ]);
     }
     
@@ -94,8 +111,19 @@ class ItemController extends CommonController
     {
         if (Yii::$app->request->post('Item')){
             $item_id = $this->saveItem(Yii::$app->request->post('Item'));
-            if ($item_id) return $this->redirect(['update', 'id' => $item_id]);
         }
+    
+        if (!empty(Yii::$app->request->post('ItemCross'))){
+            foreach(Yii::$app->request->post('ItemCross') as $cross_id){
+                if (!$cross_id) continue;
+                $itemCross = new ItemCross();
+                $itemCross->item_id = $item_id;
+                $itemCross->cross_id = $cross_id;
+                $itemCross->save();
+            }
+        }
+    
+        if ($item_id) return $this->redirect(['update', 'id' => $item_id]);
         
         $model = new Item();
         return $this->render('create', [
@@ -136,7 +164,6 @@ class ItemController extends CommonController
     
         if ($postData) ItemCross::deleteAll(['item_id' => $id]);
         if (!empty(Yii::$app->request->post('ItemCross'))){
-            ItemCross::deleteAll(['item_id' => $id]);
             foreach(Yii::$app->request->post('ItemCross') as $cross_id){
                 if (!$cross_id) continue;
                 $itemCross = new ItemCross();

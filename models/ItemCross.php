@@ -52,7 +52,16 @@ class ItemCross extends \yii\db\ActiveRecord
             'item_id' => 'Item ID',
             'cross_id' => 'Cross ID',
             'created' => 'Created',
+            'brend' => 'Бренд',
+            'cross' => 'Название'
         ];
+    }
+    
+    public function attributes(){
+        $attributes = parent::attributes();
+        $attributes[] = 'brend';
+        $attributes[] = 'cross';
+        return $attributes;
     }
 
     /**
