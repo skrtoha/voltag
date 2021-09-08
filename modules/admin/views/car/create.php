@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Cross */
+/* @var $model app\models\Car */
 
-$this->title = 'Обновить кросс: ' . $model->title;
+$this->title = 'Создать автомобиль';
 ?>
 <?=$this->render('/common/pannel-title', ['title' => $this->title]);?>
-<div class="cross-update panel-body">
+<div class="car-create panel-body">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

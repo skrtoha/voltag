@@ -79,6 +79,7 @@ AdminAsset::register($this);
                         <li><?=Html::a('Фильтры', ['filter/index'])?></li>
                         <li><?=Html::a('Значения фильтров', ['filter-value/index'])?></li>
                         <li><?=Html::a('Кроссы', ['cross/index'])?></li>
+                        <li><?=Html::a('Автомобили', ['car/index'])?></li>
                     </ul>
                 </li>
 <!--                <li><a href="credits.html">Credits</a></li>-->
