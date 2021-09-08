@@ -3,9 +3,11 @@
 namespace app\modules\admin\controllers;
 
 use app\models\Brend;
+use app\models\Car;
 use app\models\Category;
 use app\models\Cross;
 use app\models\FilterValue;
+use app\models\ItemCar;
 use app\models\ItemCross;
 use app\models\ItemValue;
 use app\models\UploadForm;
@@ -173,6 +175,17 @@ class ItemController extends CommonController
             }
         }
     
+        if ($postData) ItemCar::deleteAll(['item_id' => $id]);
+        if (!empty(Yii::$app->request->post('ItemCar'))){
+            foreach(Yii::$app->request->post('ItemCar') as $car_id){
+                if (!$car_id) continue;
+                $itemCar = new ItemCar();
+                $itemCar->item_id = $id;
+                $itemCar->car_id = $car_id;
+                $itemCar->save();
+            }
+        }
+    
         $model = $this->findModel($id);
         return $this->render('update', [
             'model' => $model,
@@ -184,6 +197,8 @@ class ItemController extends CommonController
             'itemCrossList' => ItemCross::find()->where(['item_id' => $id])->all(),
             'uploadForm' => new UploadForm(),
             'brendList' => Brend::getList(),
+            'carList' => Car::find()->all(),
+            'itemCarList' => ItemCar::getList(['item_id' => $id])->all(),
             'categoryList' => Category::getCommonList()
         ]);
     }

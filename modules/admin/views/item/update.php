@@ -7,6 +7,8 @@ use yii\helpers\Html;
 /* @var array $categoryList */
 /* @var array $filterValues */
 /* @var array $crossList */
+/* @var array $carList */
+/* @var array $itemCarList array */
 /* @var array $itemCrossList */
 /* @var $this yii\web\View */
 /* @var $itemValues \app\models\ItemValue */
@@ -19,6 +21,8 @@ $this->title = 'Обновить: ' . $model->title;
     <?= $this->render('_form', [
         'model' => $model,
         'brendList' => $brendList,
+        'carList' => $carList,
+        'itemCarList' => $itemCarList,
         'categoryList' => $categoryList,
         'filterValues' => $filterValues,
         'itemValues' => $itemValues,

@@ -12,7 +12,10 @@ use yii\widgets\ActiveForm;
 /* @var $filterValues array */
 /* @var $itemCrossList array */
 /* @var $crossList array */
+/* @var $carList array */
+/* @var $itemCarList array */
 /* @var $itemCross \app\models\ItemCross */
+/* @var $itemCar \app\models\ItemCar */
 /* @var $form yii\widgets\ActiveForm */
 
 $this->registerJsFile('/assets/admin/js/item.js', ['depends' => ['app\assets\AdminAsset']]);
@@ -80,6 +83,19 @@ $this->registerCssFile('/assets/admin/css/item.css')
                 <?=$this->render('/common/cross-item', [
                     'crossList' => $crossList,
                     'selected' => $itemCross->cross_id
+                ]);?>
+            <?}
+        }?>
+    </div>
+    
+    <h2>Используется для автомобилей</h2>
+    <div class="form-group">
+        <a href="#" id="add_car">Добавить</a>
+        <?if (isset($itemCarList)){
+            foreach($itemCarList as $itemCar){?>
+                <?=$this->render('/common/car-item', [
+                    'carList' => $carList,
+                    'selected' => $itemCar->car_id
                 ]);?>
             <?}
         }?>

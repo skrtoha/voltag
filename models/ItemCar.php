@@ -38,7 +38,39 @@ class ItemCar extends \yii\db\ActiveRecord
             [['item_id'], 'exist', 'skipOnError' => true, 'targetClass' => Item::className(), 'targetAttribute' => ['item_id' => 'id']],
         ];
     }
-
+    
+    public static function getList($params = []){
+        $query = self::find()
+            ->from(['ic' => self::tableName()])
+            ->select([
+                'i.brend_id',
+                'brend' => 'b.title',
+                'title' => 'i.title',
+                'i.article'
+                
+            ])
+            ->leftJoin(['i' => Item::tableName()], "i.id = ic.item_id")
+            ->leftJoin(['b' => Brend::tableName()], "i.brend_id = b.id");
+        
+        if(empty($params)) return $query;
+        
+        foreach($params as $key => $value){
+            switch($key){
+                case 'item_id':
+                    $query->andWhere(['ic.item_id' => $value]);
+                    break;
+            }
+        }
+        
+        return $query;
+    }
+    
+    public function attributes(){
+        $attributes = parent::attributes();
+        $attributes[] = 'item';
+        return $attributes;
+    }
+    
     /**
      * {@inheritdoc}
      */
