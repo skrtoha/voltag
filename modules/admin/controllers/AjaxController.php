@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use app\models\Car;
 use app\models\Cross;
+use app\models\Item;
 
 class AjaxController extends \app\controllers\CommonController{
     public function actionAddCrossItem(){
@@ -20,6 +21,14 @@ class AjaxController extends \app\controllers\CommonController{
             ->all();
         return $this->renderPartial('/common/car-item', [
             'carList' => $carList
+        ]);
+    }
+    public function actionAddComplectItem(){
+        $itemList = Item::getQuery()
+            ->where(['NOT IN', 'i.id', json_decode($_GET['selected'], false)])
+            ->all();
+        return $this->renderPartial('/common/complect-item', [
+            'itemList' => $itemList
         ]);
     }
     

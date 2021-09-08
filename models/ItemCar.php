@@ -44,11 +44,12 @@ class ItemCar extends \yii\db\ActiveRecord
             ->from(['ic' => self::tableName()])
             ->select([
                 'i.brend_id',
-                'brend' => 'b.title',
-                'title' => 'i.title',
-                'i.article'
-                
+                'brend_title' => 'b.title',
+                'item_title' => 'i.title',
+                'item_article' => 'i.article',
+                'car_title' => 'c.title'
             ])
+            ->leftJoin(['c' => Car::tableName()], "c.id = ic.car_id")
             ->leftJoin(['i' => Item::tableName()], "i.id = ic.item_id")
             ->leftJoin(['b' => Brend::tableName()], "i.brend_id = b.id");
         
@@ -67,7 +68,7 @@ class ItemCar extends \yii\db\ActiveRecord
     
     public function attributes(){
         $attributes = parent::attributes();
-        $attributes[] = 'item';
+        $attributes[] = 'car_title';
         return $attributes;
     }
     
@@ -77,6 +78,7 @@ class ItemCar extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'car_title' => 'Наименование',
             'item_id' => 'Item ID',
             'car_id' => 'Car ID',
             'created' => 'Created',

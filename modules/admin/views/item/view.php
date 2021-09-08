@@ -7,6 +7,7 @@ use yii\widgets\DetailView;
 /* @var $item app\models\Item */
 /* @var $itemValues app\models\ItemValue */
 /* @var $itemCrossDataProvider array */
+/* @var $itemCarDataProvider array */
 
 $this->title = $item->title;
 \yii\web\YiiAsset::register($this);
@@ -47,12 +48,19 @@ $this->title = $item->title;
     ])?>
 
     <h3>Кроссы</h3>
-    
     <?=\yii\grid\GridView::widget([
         'dataProvider' => $itemCrossDataProvider,
         'columns' => [
             'brend',
             'cross'
+        ]
+    ])?>
+
+    <h3>Применяется для автомобилей</h3>
+    <?=\yii\grid\GridView::widget([
+        'dataProvider' => $itemCarDataProvider,
+        'columns' => [
+            'car_title'
         ]
     ])?>
 

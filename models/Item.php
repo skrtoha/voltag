@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "{{%item}}".
@@ -12,6 +13,7 @@ use Yii;
  * @property int|null $brend_id
  * @property string $article
  * @property string $category_id
+ * @property int $is_complect
  *
  * @property Brend $brend
  */
@@ -83,7 +85,8 @@ class Item extends \yii\db\ActiveRecord
         return $categoryList[$this->category_id];
     }
     
-    public static function getQuery(){
+    public static function getQuery(): ActiveQuery
+    {
         return self::find()
             ->select([
                 'i.id',

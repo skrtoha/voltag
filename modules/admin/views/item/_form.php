@@ -11,6 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var $itemValues array */
 /* @var $filterValues array */
 /* @var $itemCrossList array */
+/* @var $itemComplectList array */
 /* @var $crossList array */
 /* @var $carList array */
 /* @var $itemCarList array */
@@ -23,7 +24,6 @@ $this->registerCssFile('/assets/admin/css/item.css')
 ?>
 
 <div class="item-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
@@ -33,7 +33,7 @@ $this->registerCssFile('/assets/admin/css/item.css')
     <?= $form->field($model, 'category_id')->dropDownList($categoryList) ?>
 
     <?= $form->field($model, 'article')->textInput(['maxlength' => true]) ?>
-
+    
     <div class="form-group">
         <?=Html::button('Загрузить изображение', ['class' => 'uploadFile'])?>
     </div>
@@ -98,6 +98,16 @@ $this->registerCssFile('/assets/admin/css/item.css')
                     'selected' => $itemCar->car_id
                 ]);?>
             <?}
+        }?>
+    </div>
+
+    <h2>Комплектующие</h2>
+    <div class="form-group">
+        <a href="#" id="add_complect">Добавить</a>
+        <?if (isset($itemComplectList)){
+            foreach($itemComplectList as $complectList){
+            
+            }
         }?>
     </div>
     

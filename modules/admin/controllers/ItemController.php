@@ -8,6 +8,7 @@ use app\models\Category;
 use app\models\Cross;
 use app\models\FilterValue;
 use app\models\ItemCar;
+use app\models\ItemComplect;
 use app\models\ItemCross;
 use app\models\ItemValue;
 use app\models\UploadForm;
@@ -89,10 +90,15 @@ class ItemController extends CommonController
             'query' => $query
         ]);
         
+        $itemCarDataProvider = new ActiveDataProvider([
+            'query' => ItemCar::getList(['item_id' => $id])
+        ]);
+        
         return $this->render('view', [
             'item' => $this->findItem($id),
             'itemValues' => $itemValues,
-            'itemCrossDataProvider' => $itemCrossDataProvider
+            'itemCrossDataProvider' => $itemCrossDataProvider,
+            'itemCarDataProvider' => $itemCarDataProvider
         ]);
     }
     
@@ -122,6 +128,16 @@ class ItemController extends CommonController
                 $itemCross->item_id = $item_id;
                 $itemCross->cross_id = $cross_id;
                 $itemCross->save();
+            }
+        }
+    
+        if (!empty(Yii::$app->request->post('ItemCar'))){
+            foreach(Yii::$app->request->post('ItemCar') as $car_id){
+                if (!$car_id) continue;
+                $itemCar = new ItemCar();
+                $itemCar->item_id = $item_id;
+                $itemCar->car_id = $car_id;
+                $itemCar->save();
             }
         }
     
@@ -175,19 +191,20 @@ class ItemController extends CommonController
             }
         }
     
-        if ($postData) ItemCar::deleteAll(['item_id' => $id]);
-        if (!empty(Yii::$app->request->post('ItemCar'))){
-            foreach(Yii::$app->request->post('ItemCar') as $car_id){
-                if (!$car_id) continue;
-                $itemCar = new ItemCar();
-                $itemCar->item_id = $id;
-                $itemCar->car_id = $car_id;
-                $itemCar->save();
+        if ($postData) ItemComplect::deleteAll(['item_id' => $id]);
+        if (!empty(Yii::$app->request->post('ItemComplect'))){
+            foreach(Yii::$app->request->post('ItemComplect') as $item_id){
+                if (!$item_id) continue;
+                $itemComplect = new ItemComplect();
+                $itemComplect->item_id = $id;
+                $itemComplect->item_id_complect = $item_id;
+                $itemComplect->save();
             }
         }
     
         $model = $this->findModel($id);
         return $this->render('update', [
+            'item_id' => $id,
             'model' => $model,
             'filterValues' => FilterValue::getList([
                 'category_id' => $model->category_id,
@@ -195,11 +212,15 @@ class ItemController extends CommonController
             ]),
             'crossList' => Cross::find()->all(),
             'itemCrossList' => ItemCross::find()->where(['item_id' => $id])->all(),
+            'itemComplectList' => Item::getQuery()
+                ->leftJoin(['ic' => ItemComplect::tableName()], "ic.item_id = i.id")
+                ->where(['ic.item_id' => $id])
+                ->all(),
             'uploadForm' => new UploadForm(),
             'brendList' => Brend::getList(),
             'carList' => Car::find()->all(),
             'itemCarList' => ItemCar::getList(['item_id' => $id])->all(),
-            'categoryList' => Category::getCommonList()
+            'categoryList' => array_merge([0 => 'не указана'], Category::getCommonList())
         ]);
     }
 

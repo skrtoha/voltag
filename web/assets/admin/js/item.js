@@ -1,6 +1,10 @@
 function add_cross_car(obj, name, action){
     let th = $(obj);
     let selected = [];
+
+    const item_id = $('input[name=item_id]').val();
+    if (name === 'ItemComplect' && item_id) selected.push(item_id);
+
     $.each($('form').serializeArray(), function(i, item){
         if (item.name !== name + '[]') return  1;
         selected.push(item.value);
@@ -24,6 +28,10 @@ $(function(){
     $('#add_car').on('click', function(e){
         e.preventDefault();
         add_cross_car(this, 'ItemCar', 'add-car-item');
+    })
+    $('#add_complect').on('click', function(e){
+        e.preventDefault();
+        add_cross_car(this, 'ItemComplect', 'add-complect-item');
     })
     $(document).on('click', '.icon-close', function(){
         $(this).closest('div').remove();
