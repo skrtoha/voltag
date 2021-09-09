@@ -15,6 +15,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $itemValues \app\models\ItemValue */
 /* @var $model app\models\Category */
+/* @var $itemComplectDataProvider \yii\data\ActiveDataProvider */
 
 $this->title = 'Обновить: ' . $model->title;
 ?>
@@ -32,6 +33,7 @@ $this->title = 'Обновить: ' . $model->title;
         'crossList' => $crossList,
         'itemCrossList' => $itemCrossList,
         'uploadForm' => $uploadForm,
-        'itemComplectList' => $itemComplectList
+        'itemComplectList' => $itemComplectList,
+        'itemComplectDataProvider' => $itemComplectDataProvider
     ]) ?>
 </div>

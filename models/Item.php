@@ -44,6 +44,7 @@ class Item extends \yii\db\ActiveRecord
     public function attributes(){
         $attributes = parent::attributes();
         $attributes[] = 'brend';
+        $attributes[] = 'item_id_complect';
         return $attributes;
     }
     
@@ -55,7 +56,8 @@ class Item extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Наименование',
-            'brend_id' => 'Бренд',
+            'brend_id' => 'Brend Id',
+            'brend' => 'Бренд',
             'article' => 'Артикул',
             'category_id' => 'Категория'
         ];

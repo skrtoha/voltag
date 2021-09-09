@@ -151,6 +151,14 @@ class ItemController extends CommonController
             'brendList' => Brend::getList()
         ]);
     }
+    
+    public function actionDeleteComplect($id, $item_id_complect){
+        ItemComplect::deleteAll([
+            'item_id' => $id,
+            'item_id_complect' => $item_id_complect
+        ]);
+        $this->redirect(['update', 'id' => $id]);
+    }
 
     /**
      * Updates an existing Item model.
@@ -201,6 +209,13 @@ class ItemController extends CommonController
                 $itemComplect->save();
             }
         }
+        
+        $itemComplectDataProvider = new ActiveDataProvider([
+            'query' => Item::getQuery()
+                ->addSelect(['item_id_complect'])
+                ->leftJoin(['ic' => ItemComplect::tableName()], "ic.item_id_complect = i.id")
+                ->where(['ic.item_id' => $id])
+        ]);
     
         $model = $this->findModel($id);
         return $this->render('update', [
@@ -212,10 +227,7 @@ class ItemController extends CommonController
             ]),
             'crossList' => Cross::find()->all(),
             'itemCrossList' => ItemCross::find()->where(['item_id' => $id])->all(),
-            'itemComplectList' => Item::getQuery()
-                ->leftJoin(['ic' => ItemComplect::tableName()], "ic.item_id = i.id")
-                ->where(['ic.item_id' => $id])
-                ->all(),
+            'itemComplectDataProvider' => $itemComplectDataProvider,
             'uploadForm' => new UploadForm(),
             'brendList' => Brend::getList(),
             'carList' => Car::find()->all(),

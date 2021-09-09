@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $brendList array*/
 /* @var $categoryList array*/
 /* @var $this yii\web\View */
-/* @var \app\models\UploadForm $uploadForm */
+/* @var $uploadForm \app\models\UploadForm  */
 /* @var $model app\models\Item */
 /* @var $itemValues array */
 /* @var $filterValues array */
@@ -18,6 +18,7 @@ use yii\widgets\ActiveForm;
 /* @var $itemCross \app\models\ItemCross */
 /* @var $itemCar \app\models\ItemCar */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $itemComplectDataProvider \yii\data\ActiveDataProvider */
 
 $this->registerJsFile('/assets/admin/js/item.js', ['depends' => ['app\assets\AdminAsset']]);
 $this->registerCssFile('/assets/admin/css/item.css')
@@ -104,11 +105,27 @@ $this->registerCssFile('/assets/admin/css/item.css')
     <h2>Комплектующие</h2>
     <div class="form-group">
         <a href="#" id="add_complect">Добавить</a>
-        <?if (isset($itemComplectList)){
-            foreach($itemComplectList as $complectList){
-            
-            }
-        }?>
+        <?if (isset($itemComplectDataProvider)){?>
+            <?=\yii\grid\GridView::widget([
+                'dataProvider' => $itemComplectDataProvider,
+                'columns' => [
+                    'title',
+                    'brend',
+                    'article',
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'urlCreator' => function($action, $model){
+                            return [
+                                "$action-complect",
+                                'id' => $_GET['id'],
+                                'item_id_complect' => $model['item_id_complect']
+                            ];
+                        },
+                        'template' => '{delete}'
+                    ]
+                ]
+            ])?>
+        <?}?>
     </div>
     
 
