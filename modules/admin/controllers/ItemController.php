@@ -19,6 +19,7 @@ use yii\data\ActiveDataProvider;
 use yii\debug\models\timeline\DataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ItemController implements the CRUD actions for Item model.
@@ -181,6 +182,12 @@ class ItemController extends CommonController
         if ($postData){
             $postData['id'] = $id;
             $this->saveItem($postData);
+        }
+    
+        $uploadForm = new UploadForm();
+        $uploadForm->imageFile = UploadedFile::getInstance($uploadForm, 'imageFile');
+        if ($uploadForm->upload($id)){
+            print_r($uploadForm);
         }
     
         if ($postData) ItemValue::deleteAll(['item_id' => $id]);

@@ -18,6 +18,7 @@ use yii\widgets\ActiveForm;
 /* @var $itemCross \app\models\ItemCross */
 /* @var $itemCar \app\models\ItemCar */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $uploadForm \app\models\UploadForm */
 /* @var $itemComplectDataProvider \yii\data\ActiveDataProvider */
 
 $this->registerJsFile('/assets/admin/js/item.js', ['depends' => ['app\assets\AdminAsset']]);
@@ -35,9 +36,7 @@ $this->registerCssFile('/assets/admin/css/item.css')
 
     <?= $form->field($model, 'article')->textInput(['maxlength' => true]) ?>
     
-    <div class="form-group">
-        <?=Html::button('Загрузить изображение', ['class' => 'uploadFile'])?>
-    </div>
+    <?= $form->field($uploadForm, 'imageFile')->fileInput()?>
     
     <?if ($filterValues){?>
         <h3>Фильтры</h3>
@@ -149,4 +148,3 @@ $this->registerCssFile('/assets/admin/css/item.css')
     <?php ActiveForm::end(); ?>
 
 </div>
-<?=$this->render('/common/upload-image', ['model' => $uploadForm]);?>

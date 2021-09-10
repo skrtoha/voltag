@@ -5,6 +5,7 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 
 class UploadForm extends Model{
+    public static $path = 'D:/OpenServer/domains/voltag/upload';
     /**
      * @var UploadedFile
      */
@@ -17,10 +18,10 @@ class UploadForm extends Model{
         ];
     }
     
-    public function upload()
+    public function upload($item_id, $type)
     {
         if ($this->validate()) {
-            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            $this->imageFile->saveAs(self::$path."/$type/$item_id/" . $this->imageFile->baseName . '.' . $this->imageFile->extension);
             return true;
         } else {
             return false;
