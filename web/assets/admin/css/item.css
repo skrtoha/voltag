@@ -27,3 +27,21 @@ div.cross-item {
     color: red;
     font-weight: 800;
 }
+.image {
+    width: 250px;
+}
+.image img{
+    width: 100%;
+}
+.image a{
+    text-align: center;
+    display: block;
+}
+.image-wrap table tbody{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+}

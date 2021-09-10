@@ -5,23 +5,35 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 
 class UploadForm extends Model{
-    public static $path = 'D:/OpenServer/domains/voltag/upload';
     /**
      * @var UploadedFile
      */
     public $imageFile;
     
+    public function attributeLabels(){
+        return [
+            'imageFile' => 'Изображение'
+        ];
+    }
+    
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 5],
         ];
     }
     
     public function upload($item_id, $type)
     {
+        $folder = \Yii::$app->params['imgPath'].'/items';
+        if (!file_exists($folder)) mkdir($folder);
+        $folder .= "/$item_id";
+        if (!file_exists($folder)) mkdir($folder);
+        
         if ($this->validate()) {
-            $this->imageFile->saveAs(self::$path."/$type/$item_id/" . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            foreach($this->imageFile as $file){
+                $file->saveAs("$folder/$file->baseName.$file->extension");
+            }
             return true;
         } else {
             return false;

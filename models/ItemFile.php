@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "item_file".
@@ -36,7 +37,13 @@ class ItemFile extends \yii\db\ActiveRecord
             [['item_id'], 'exist', 'skipOnError' => true, 'targetClass' => Item::className(), 'targetAttribute' => ['item_id' => 'id']],
         ];
     }
-
+    
+    public function attributes(){
+        $attributes = parent::attributes();
+        $attributes[] = 'fullPath';
+        return $attributes;
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -45,6 +52,7 @@ class ItemFile extends \yii\db\ActiveRecord
         return [
             'item_id' => 'Item ID',
             'file_id' => 'File ID',
+            'fullPath' => 'Изображения'
         ];
     }
 
@@ -66,5 +74,30 @@ class ItemFile extends \yii\db\ActiveRecord
     public function getItem()
     {
         return $this->hasOne(Item::className(), ['id' => 'item_id']);
+    }
+    
+    public static function getPathList($params = []): ActiveQuery
+    {
+        $query = self::find()
+            ->from(['if' => self::tableName()])
+            ->select([
+                'if.item_id',
+                'if.file_id',
+                'fullPath' => "CONCAT('".Yii::$app->params['imgUrl']."', f.path, f.title)"
+            ])
+            ->leftJoin(['f' => File::tableName()], "f.id = if.file_id");
+        
+        if (empty($params)) return $query;
+        
+        foreach($params as $key => $value){
+            switch($key){
+                case 'item_id':
+                    $query->andWhere([$key => $value]);
+                    break;
+                    
+            }
+        }
+        
+        return $query;
     }
 }

@@ -6,10 +6,12 @@ use app\models\Brend;
 use app\models\Car;
 use app\models\Category;
 use app\models\Cross;
+use app\models\File;
 use app\models\FilterValue;
 use app\models\ItemCar;
 use app\models\ItemComplect;
 use app\models\ItemCross;
+use app\models\ItemFile;
 use app\models\ItemValue;
 use app\models\UploadForm;
 use Yii;
@@ -101,13 +103,18 @@ class ItemController extends CommonController
                 ->leftJoin(['ic' => ItemComplect::tableName()], "ic.item_id_complect = i.id")
                 ->where(['ic.item_id' => $id])
         ]);
+    
+        $imagesDataProvider = new ActiveDataProvider([
+            'query' => ItemFile::getPathList(['item_id' => $id])
+        ]);
         
         return $this->render('view', [
             'item' => $this->findItem($id),
             'itemValues' => $itemValues,
             'itemCrossDataProvider' => $itemCrossDataProvider,
             'itemCarDataProvider' => $itemCarDataProvider,
-            'itemComplectDataProvider' => $itemComplectDataProvider
+            'itemComplectDataProvider' => $itemComplectDataProvider,
+            'imagesDataProvider' => $imagesDataProvider
         ]);
     }
     
@@ -128,6 +135,7 @@ class ItemController extends CommonController
     {
         if (Yii::$app->request->post('Item')){
             $item_id = $this->saveItem(Yii::$app->request->post('Item'));
+            $this->saveFiles($item_id);
         }
     
         if (!empty(Yii::$app->request->post('ItemCross'))){
@@ -161,12 +169,41 @@ class ItemController extends CommonController
         ]);
     }
     
+    private function saveFiles($item_id){
+        $uploadForm = new UploadForm();
+        $uploadForm->imageFile = UploadedFile::getInstances($uploadForm, 'imageFile');
+        if ($uploadForm->upload($item_id, 'items')){
+            foreach($uploadForm->imageFile as $fileObject){
+                $file = new File();
+                $file->path = "/items/{$item_id}/";
+                $file->title = $fileObject->getBaseName().'.'.$fileObject->getExtension();
+                $file->save();
+            
+                $file_id = Yii::$app->db->getLastInsertID();
+            
+                $itemFile = new ItemFile();
+                $itemFile->item_id = $item_id;
+                $itemFile->file_id = $file_id;
+                $itemFile->save();
+            }
+        
+        }
+    }
+    
     public function actionDeleteComplect($id, $item_id_complect){
         ItemComplect::deleteAll([
             'item_id' => $id,
             'item_id_complect' => $item_id_complect
         ]);
         $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionImageDelete($item_id, $file_id){
+        $fileInfo = File::find()->where(['id' => $file_id])->one();
+        unlink(Yii::$app->params['imgPath'].$fileInfo['path'].$fileInfo['title']);
+        ItemFile::deleteAll(['item_id' => $item_id, 'file_id' => $file_id]);
+        File::deleteAll(['id' => $file_id]);
+        return $this->redirect(['update', 'id' => $item_id]);
     }
 
     /**
@@ -184,11 +221,7 @@ class ItemController extends CommonController
             $this->saveItem($postData);
         }
     
-        $uploadForm = new UploadForm();
-        $uploadForm->imageFile = UploadedFile::getInstance($uploadForm, 'imageFile');
-        if ($uploadForm->upload($id)){
-            print_r($uploadForm);
-        }
+        if ($postData) $this->saveFiles($id);
     
         if ($postData) ItemValue::deleteAll(['item_id' => $id]);
         if (!empty(Yii::$app->request->post('ItemValue'))){
@@ -225,11 +258,17 @@ class ItemController extends CommonController
             }
         }
         
+        if ($postData) return $this->redirect(['view', 'id' => $id]);
+        
         $itemComplectDataProvider = new ActiveDataProvider([
             'query' => Item::getQuery()
                 ->addSelect(['item_id_complect'])
                 ->leftJoin(['ic' => ItemComplect::tableName()], "ic.item_id_complect = i.id")
                 ->where(['ic.item_id' => $id])
+        ]);
+        
+        $imagesDataProvider = new ActiveDataProvider([
+            'query' => ItemFile::getPathList(['item_id' => $id])
         ]);
     
         $model = $this->findModel($id);
@@ -243,6 +282,7 @@ class ItemController extends CommonController
             'crossList' => Cross::find()->all(),
             'itemCrossList' => ItemCross::find()->where(['item_id' => $id])->all(),
             'itemComplectDataProvider' => $itemComplectDataProvider,
+            'imagesDataProvider' => $imagesDataProvider,
             'uploadForm' => new UploadForm(),
             'brendList' => Brend::getList(),
             'carList' => Car::find()->all(),

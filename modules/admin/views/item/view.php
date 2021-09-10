@@ -9,9 +9,11 @@ use yii\widgets\DetailView;
 /* @var $itemCrossDataProvider array */
 /* @var $itemCarDataProvider array */
 /* @var $itemComplectDataProvider \yii\data\ActiveDataProvider */
+/* @var $imagesDataProvider \yii\data\ActiveDataProvider */
 
 $this->title = $item->title;
 \yii\web\YiiAsset::register($this);
+$this->registerCssFile('/assets/admin/css/item.css')
 ?>
 <?=$this->render('/common/pannel-title', ['title' => $this->title])?>
 <div class="item-view panel-body">
@@ -41,7 +43,28 @@ $this->title = $item->title;
             'article',
         ],
     ]) ?>
-    
+
+    <h3>Изображения</h3>
+    <div class="form-group image-wrap">
+        <?if (isset($imagesDataProvider)){?>
+            <?=\yii\grid\GridView::widget([
+                'dataProvider' => $imagesDataProvider,
+                'columns' => [
+                    [
+                        'attribute' => 'fullPath',
+                        'format' => 'raw',
+                        'value' => function(\app\models\ItemFile $model){
+                            return '<div class="image">
+                                        <a target="_blank" href="'.$model->fullPath.'">
+                                            <img alt="" src="'.$model->fullPath.'">
+                                        </a>
+                                    </div>';
+                        }
+                    ]
+                ]
+            ])?>
+        <?}?>
+    </div>
     <h3>Фильтры</h3>
     
     <?=DetailView::widget([
