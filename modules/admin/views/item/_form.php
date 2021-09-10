@@ -109,11 +109,12 @@ $this->registerCssFile('/assets/admin/css/item.css')
             <?=\yii\grid\GridView::widget([
                 'dataProvider' => $itemComplectDataProvider,
                 'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
                     'title',
                     'brend',
                     'article',
                     [
-                        'class' => 'yii\grid\ActionColumn',
+                        'class' => \yii\grid\ActionColumn::class,
                         'urlCreator' => function($action, $model){
                             return [
                                 "$action-complect",
@@ -121,7 +122,19 @@ $this->registerCssFile('/assets/admin/css/item.css')
                                 'item_id_complect' => $model['item_id_complect']
                             ];
                         },
-                        'template' => '{delete}'
+                        'template' => '{delete}',
+                        'buttons' => [
+                            'delete' => function ($url, $model, $key) {
+                                $output = Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                    'title' => Yii::t('yii', 'Delete'),
+                                    'data-confirm' => 'Are you sure you want to delete?',
+                                    'data-method' => 'post',
+                                    'data-pjax' => '0',
+                                ]);
+                                $output .= '<input type="hidden" name="ItemComplect[]" value="'.$model->id.'">';
+                                return $output;
+                            },
+                        ]
                     ]
                 ]
             ])?>
