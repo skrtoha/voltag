@@ -8,6 +8,7 @@ use yii\widgets\DetailView;
 /* @var $itemValues app\models\ItemValue */
 /* @var $itemCrossDataProvider array */
 /* @var $itemCarDataProvider array */
+/* @var $itemComplectDataProvider \yii\data\ActiveDataProvider */
 
 $this->title = $item->title;
 \yii\web\YiiAsset::register($this);
@@ -63,5 +64,15 @@ $this->title = $item->title;
             'car_title'
         ]
     ])?>
-
+    
+    <h3>Комплектующие</h3>
+    <?=\yii\grid\GridView::widget([
+        'dataProvider' => $itemComplectDataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'title',
+            'brend',
+            'article'
+        ]
+    ])?>
 </div>

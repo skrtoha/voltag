@@ -127,7 +127,7 @@ $this->registerCssFile('/assets/admin/css/item.css')
                             'delete' => function ($url, $model, $key) {
                                 $output = Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                                     'title' => Yii::t('yii', 'Delete'),
-                                    'data-confirm' => 'Are you sure you want to delete?',
+                                    'data-confirm' => 'Уверены, что хотите удалить?',
                                     'data-method' => 'post',
                                     'data-pjax' => '0',
                                 ]);

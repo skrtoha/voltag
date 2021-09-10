@@ -93,12 +93,20 @@ class ItemController extends CommonController
         $itemCarDataProvider = new ActiveDataProvider([
             'query' => ItemCar::getList(['item_id' => $id])
         ]);
+    
+        $itemComplectDataProvider = new ActiveDataProvider([
+            'query' => Item::getQuery()
+                ->addSelect(['item_id_complect'])
+                ->leftJoin(['ic' => ItemComplect::tableName()], "ic.item_id_complect = i.id")
+                ->where(['ic.item_id' => $id])
+        ]);
         
         return $this->render('view', [
             'item' => $this->findItem($id),
             'itemValues' => $itemValues,
             'itemCrossDataProvider' => $itemCrossDataProvider,
-            'itemCarDataProvider' => $itemCarDataProvider
+            'itemCarDataProvider' => $itemCarDataProvider,
+            'itemComplectDataProvider' => $itemComplectDataProvider
         ]);
     }
     
