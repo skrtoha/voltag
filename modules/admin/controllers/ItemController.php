@@ -322,7 +322,7 @@ class ItemController extends CommonController
      */
     protected function findItem($id)
     {
-        $array = Item::getQuery()->where(['i.id' => $id])->asArray()->one();
+        $array = Item::getQuery()->where(['i.id' => $id])->one();
         if ($array !== null) {
             return $array;
         }

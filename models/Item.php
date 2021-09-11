@@ -9,6 +9,7 @@ use yii\db\ActiveQuery;
  * This is the model class for table "{{%item}}".
  *
  * @property int $id
+ * @property integer $price
  * @property string $title
  * @property int|null $brend_id
  * @property string $article
@@ -34,7 +35,7 @@ class Item extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'article'], 'required'],
-            [['brend_id', 'category_id'], 'integer'],
+            [['brend_id', 'category_id', 'price'], 'integer'],
             [['title', 'article'], 'string', 'max' => 255],
             [['brend_id', 'article'], 'unique', 'targetAttribute' => ['brend_id', 'article']],
             [['brend_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brend::className(), 'targetAttribute' => ['brend_id' => 'id']],
@@ -59,6 +60,7 @@ class Item extends \yii\db\ActiveRecord
             'brend_id' => 'Brend Id',
             'brend' => 'Бренд',
             'article' => 'Артикул',
+            'price' => 'Цена',
             'category_id' => 'Категория'
         ];
     }
@@ -95,7 +97,8 @@ class Item extends \yii\db\ActiveRecord
                 'title' => 'i.title',
                 'i.brend_id',
                 'brend' => 'b.title',
-                'i.article',
+                'article' => 'i.article',
+                'price' => 'i.price',
                 'i.category_id',
                 'category' => 'c.title'
             ])

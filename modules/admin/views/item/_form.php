@@ -37,6 +37,8 @@ $this->registerCssFile('/assets/admin/css/item.css')
 
     <?= $form->field($model, 'article')->textInput(['maxlength' => true]) ?>
     
+    <?= $form->field($model, 'price')->textInput() ?>
+    
     <h2>Изображения</h2>
     <div class="form-group image-wrap">
         <?if (isset($imagesDataProvider)){?>

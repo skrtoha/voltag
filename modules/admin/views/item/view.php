@@ -41,6 +41,7 @@ $this->registerCssFile('/assets/admin/css/item.css')
                 }
             ],
             'article',
+            'price'
         ],
     ]) ?>
 
