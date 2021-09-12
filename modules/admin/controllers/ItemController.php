@@ -236,6 +236,17 @@ class ItemController extends CommonController
             }
         }
     
+        if ($postData) ItemCar::deleteAll(['item_id' => $id]);
+        if (!empty(Yii::$app->request->post('ItemCar'))){
+            foreach(Yii::$app->request->post('ItemCar') as $car_id){
+                if (!$car_id) continue;
+                $itemCar = new ItemCar();
+                $itemCar->item_id = $id;
+                $itemCar->car_id = $car_id;
+                $itemCar->save();
+            }
+        }
+    
         if ($postData) ItemCross::deleteAll(['item_id' => $id]);
         if (!empty(Yii::$app->request->post('ItemCross'))){
             foreach(Yii::$app->request->post('ItemCross') as $cross_id){

@@ -22,6 +22,9 @@ div.cross-item {
     top: 7px;
     right: 3px;
 }
+.table-bordered tr th:last-child {
+    width: 68px;
+}
 .icon-close:before{
     font-size: 17px;
     color: red;

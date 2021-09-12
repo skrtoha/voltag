@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%item}}".
@@ -79,6 +80,18 @@ class Item extends \yii\db\ActiveRecord
         return $this->hasMany(ItemValue::class, ['item_id' => 'id']);
     }
     
+    public function getItemComplect(){
+        return $this->hasMany(ItemComplect::class, ['item_id' => 'id']);
+    }
+    
+    public function getItemCar(){
+        return $this->hasMany(ItemCar::class, ['item_id' => 'id']);
+    }
+    
+    public function getItemFile(){
+        return $this->hasMany(ItemFile::class, ['item_id' => 'id']);
+    }
+    
     public function getBrendTitle(){
         $brendList = Brend::getList();
         return $brendList[$this->brend_id];
@@ -87,6 +100,16 @@ class Item extends \yii\db\ActiveRecord
     public function getCategoryTitle(){
         $categoryList = Category::getCommonList();
         return $categoryList[$this->category_id];
+    }
+    
+    public static function getQueryMeta(): ActiveQuery
+    {
+        return Item::getQuery()
+            ->with('itemValue.filter')
+            ->with('itemValue.filterValue')
+            ->with('itemComplect.complect')
+            ->with('itemCar.car')
+            ->with('itemFile.file');
     }
     
     public static function getQuery(): ActiveQuery
