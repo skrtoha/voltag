@@ -26,5 +26,3 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
-
-<?=$this->render('/common/upload-image', ['model' => $uploadForm]);
