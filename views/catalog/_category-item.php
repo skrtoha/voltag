@@ -37,22 +37,27 @@ use yii\helpers\Url;
     <?}?>
     <div class="clearfix"></div>
 </div>
-<div class="price">
-    Цена: <?=$model->price?>
-</div>
 <div class="bottom">
     <div class="left">
-        <?if (!empty($model->itemComplect)){
-            foreach($model->itemComplect as $row){?>
-                <span class="complect"><?=$row->complect->article?></span>
-            <?}?>
+        <?if (!empty($model->itemComplect)){?>
+            <div class="complects">
+                <?foreach($model->itemComplect as $row){?>
+                    <span class="complect"><?=$row->complect->article?></span>
+                <?}?>
+            </div>
+        <?}?>
+        <?if (!empty($model->itemCar)){?>
+            <div class="cars">
+                <?foreach($model->itemCar as $row){?>
+                    <span class="car"><?=$row->car->title?></span>
+                <?}?>
+            </div>
         <?}?>
     </div>
     <div class="right">
-        <?if (!empty($model->itemCar)){
-            foreach($model->itemCar as $row){?>
-                <span class="car"><?=$row->car->title?></span>
-            <?}?>
-        <?}?>
+        <div class="price">
+            <?=$model->price?> руб.
+        </div>
     </div>
+    <div class="clearfix"></div>
 </div>

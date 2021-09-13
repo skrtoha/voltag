@@ -142,10 +142,18 @@ div[data-key] > div{
 }
 .left {
     float: left;
+    position: relative;
 }
 .right {
     float: right;
 }
 #catalog p.item_value {
     margin-bottom: 0;
+}
+div[data-key] .bottom > .left{
+    width: 60%;
+}
+div[data-key] .price {
+    font-weight: 800;
+    font-size: 18px;
 }

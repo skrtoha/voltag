@@ -6,7 +6,7 @@ function showGif(hide = true){
 
     // Variable
     var $ = jQuery;
-    $.fn.ripple = function () {
+    /*$.fn.ripple = function () {
         $(this).click(function (e) {
             var rippler = $(this),
                 ink = rippler.find(".ink");
@@ -32,7 +32,7 @@ function showGif(hide = true){
               left:x+'px'
             }).addClass("animate");
         });
-    };
+    };*/
 
     $.fn.carouselAnimate = function()
     {
