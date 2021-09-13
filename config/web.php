@@ -47,9 +47,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'catalog/<transliteration:[\w-]+>'=> 'catalog/category'
-                /*'<module:\w+>/<controller:w+>/<action:\w+>' => '<module>/<controller>/<action>',
-                '<controller:\w+>/<action:\w+>'=> '<controller>/<action>'*/
+                'catalog/index'=> 'catalog/',
+                'catalog/<transliteration:[\w-]+>'=> 'catalog/category',
+                '<module:\w+>/<controller:w+>/<action:\w+>' => '<module>/<controller>/<action>',
+                '<controller:\w+>/<action:\w+>'=> '<controller>/<action>'
             ],
         ],
         

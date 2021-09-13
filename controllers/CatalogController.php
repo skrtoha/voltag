@@ -11,7 +11,7 @@ class CatalogController extends CommonController{
     public function actionIndex(){
         $sort = Yii::$app->getRequest()->get('sort');
         $query = Item::getQueryMeta();
-
+        
         if ($sort) $query->orderBy("i.price $sort");
 
         return $this->render('index', [
