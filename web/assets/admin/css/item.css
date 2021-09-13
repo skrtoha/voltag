@@ -1,4 +1,4 @@
-a#add_cross {
+#add_cross, #add_car {
     margin-right: 10px;
 }
 div.cross-item {
@@ -22,8 +22,29 @@ div.cross-item {
     top: 7px;
     right: 3px;
 }
+.table-bordered tr th:last-child {
+    width: 68px;
+}
 .icon-close:before{
     font-size: 17px;
     color: red;
     font-weight: 800;
+}
+.image {
+    width: 250px;
+}
+.image img{
+    width: 100%;
+}
+.image a{
+    text-align: center;
+    display: block;
+}
+.image-wrap table tbody{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
 }

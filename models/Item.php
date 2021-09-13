@@ -3,15 +3,19 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%item}}".
  *
  * @property int $id
+ * @property integer $price
  * @property string $title
  * @property int|null $brend_id
  * @property string $article
  * @property string $category_id
+ * @property int $is_complect
  *
  * @property Brend $brend
  */
@@ -32,7 +36,7 @@ class Item extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'article'], 'required'],
-            [['brend_id', 'category_id'], 'integer'],
+            [['brend_id', 'category_id', 'price'], 'integer'],
             [['title', 'article'], 'string', 'max' => 255],
             [['brend_id', 'article'], 'unique', 'targetAttribute' => ['brend_id', 'article']],
             [['brend_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brend::className(), 'targetAttribute' => ['brend_id' => 'id']],
@@ -42,6 +46,7 @@ class Item extends \yii\db\ActiveRecord
     public function attributes(){
         $attributes = parent::attributes();
         $attributes[] = 'brend';
+        $attributes[] = 'item_id_complect';
         return $attributes;
     }
     
@@ -53,8 +58,10 @@ class Item extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Наименование',
-            'brend_id' => 'Бренд',
+            'brend_id' => 'Brend Id',
+            'brend' => 'Бренд',
             'article' => 'Артикул',
+            'price' => 'Цена',
             'category_id' => 'Категория'
         ];
     }
@@ -73,6 +80,18 @@ class Item extends \yii\db\ActiveRecord
         return $this->hasMany(ItemValue::class, ['item_id' => 'id']);
     }
     
+    public function getItemComplect(){
+        return $this->hasMany(ItemComplect::class, ['item_id' => 'id']);
+    }
+    
+    public function getItemCar(){
+        return $this->hasMany(ItemCar::class, ['item_id' => 'id']);
+    }
+    
+    public function getItemFile(){
+        return $this->hasMany(ItemFile::class, ['item_id' => 'id']);
+    }
+    
     public function getBrendTitle(){
         $brendList = Brend::getList();
         return $brendList[$this->brend_id];
@@ -83,14 +102,26 @@ class Item extends \yii\db\ActiveRecord
         return $categoryList[$this->category_id];
     }
     
-    public static function getQuery(){
+    public static function getQueryMeta(): ActiveQuery
+    {
+        return Item::getQuery()
+            ->with('itemValue.filter')
+            ->with('itemValue.filterValue')
+            ->with('itemComplect.complect')
+            ->with('itemCar.car')
+            ->with('itemFile.file');
+    }
+    
+    public static function getQuery(): ActiveQuery
+    {
         return self::find()
             ->select([
                 'i.id',
                 'title' => 'i.title',
                 'i.brend_id',
                 'brend' => 'b.title',
-                'i.article',
+                'article' => 'i.article',
+                'price' => 'i.price',
                 'i.category_id',
                 'category' => 'c.title'
             ])

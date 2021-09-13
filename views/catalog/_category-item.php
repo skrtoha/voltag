@@ -2,26 +2,57 @@
 /* @var \app\models\Item $model */
 use yii\helpers\Html;
 use yii\helpers\Url;
-
-$url = Url::to(['catalog/item', 'id' => $model->id]);
 ?>
-<!--<pre>--><?//print_r($model);?><!--</pre>-->
-<div class="col-lg-4 col-sm-6">
-    <div class="properties">
-        <div class="image-holder">
-            <img src="images/properties/1.jpg" class="img-responsive" alt="properties">
-            <div class="status sold">Sold</div>
+<div class="top">
+    <h3><?=Html::a($model->article, ['/item', 'id' => $model->id])?></h3>
+    <p><?=$model->title?></p>
+</div>
+<div class="middle">
+    <div class="left">
+        <?if (!empty($model->itemValue)){
+            foreach($model->itemValue as $value){?>
+                <p class="item_value">
+                    <?if ($value->filter->signment){?>
+                        <b class="signment"><?=$value->filter->signment?></b>:
+                    <?}?>
+                    <?if ($value->filter->enum){?>
+                        <span class="filter_value"><?=$value->filterValue->title?></span>
+                    <?}
+                    else{?>
+                        <span class="filter_value"><?=$value->value?></span>
+                    <?}?>
+                    <?if ($value->filter->measure_string){?>
+                        <span class="measure_string"><?=$value->filter->measure_string?></span>
+                    <?}?>
+                </p>
+            <?}
+        }?>
+    </div>
+    <?if (!empty($model->itemFile)){?>
+        <div class="right">
+            <div class="image">
+                <img src="<?=Yii::$app->params['imgUrl'].$model->itemFile[0]->file->path.$model->itemFile[0]->file->title?>" alt="">
+            </div>
         </div>
-        <h4>
-            <a href="<?=$url?>"><?=$model->brend?> <?=$model->title?> <?=$model->article?></a>
-        </h4>
-        <p class="price">Цена: не установлено</p>
-        <div class="listing-detail">
-            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Bed Room">5</span>
-            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Living Room">2</span>
-            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Parking">2</span>
-            <span data-toggle="tooltip" data-placement="bottom" data-original-title="Kitchen">1</span>
-        </div>
-        <?=Html::a('Подробнее', $url, ['class' => 'btn btn-primary'])?>
+    <?}?>
+    <div class="clearfix"></div>
+</div>
+<div class="price">
+    Цена: <?=$model->price?>
+</div>
+<div class="bottom">
+    <div class="left">
+        <?if (!empty($model->itemComplect)){
+            foreach($model->itemComplect as $row){?>
+                <span class="complect"><?=$row->complect->article?></span>
+            <?}?>
+        <?}?>
+    </div>
+    <div class="right">
+        <?if (!empty($model->itemCar)){
+            foreach($model->itemCar as $row){?>
+                <span class="car"><?=$row->car->title?></span>
+            <?}?>
+        <?}?>
     </div>
 </div>
