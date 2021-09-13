@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
+/* @var $brendList array */
 /* @var $model app\models\Cross */
 
 $this->title = 'Обновить кросс: ' . $model->title;
@@ -14,6 +15,7 @@ $this->title = 'Обновить кросс: ' . $model->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'brendList' => $brendList
     ]) ?>
 
 </div>

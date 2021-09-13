@@ -164,7 +164,10 @@ class ItemController extends CommonController
         return $this->render('create', [
             'model' => $model,
             'uploadForm' => new UploadForm(),
-            'categoryList' => Category::getCommonList(),
+            'categoryList' => array_merge(
+                [0 => 'не указана'],
+                Category::getCommonList()
+            ),
             'brendList' => Brend::getList()
         ]);
     }

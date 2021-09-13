@@ -73,6 +73,10 @@ class BrendController extends CommonController
             'model' => $model,
         ]);
     }
+    
+    private function findModel($id){
+        return Brend::findOne($id);
+    }
 
     /**
      * Updates an existing Brend model.

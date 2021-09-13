@@ -90,6 +90,8 @@ class CrossController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $brendList = Brend::getList();
+        unset($brendList[0]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -97,6 +99,7 @@ class CrossController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'brendList' => $brendList
         ]);
     }
 

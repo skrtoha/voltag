@@ -71,39 +71,41 @@ $this->registerCssFile('/assets/admin/css/item.css')
     
     <?= $form->field($uploadForm, 'imageFile[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])?>
     
-    <h3>Фильтры</h3>
-    <?foreach($filterValues as $row){?>
-        <div class="form-group">
-            <input type="hidden" name="ItemValue[<?=$row['filter_id']?>][enum]?>" value="<?=$row['enum']?>">
-            <?if ($row['enum'] == 0){?>
-                <label class="control-label" for="ItemValue_<?=$row['filter_id']?>">
-                    <?=$row['title']?>
-                </label>
-                <input
-                    id="ItemValue_<?=$row['filter_id']?>"
-                    type="text"
-                    class="form-control"
-                    name="ItemValue[<?=$row['filter_id']?>][value]"
-                    value="<?=$row['value']?>"
-                >
-            <?}
-            else{?>
-                <label for="ItemValue_<?=$row['filter_id']?>">
-                    <?=$row['title']?>
-                </label>
-                <select
-                    name="ItemValue[<?=$row['filter_id']?>][value]?>"
-                    id="ItemValue_<?=$row['filter_id']?>"
-                    class="form-control"
-                >
-                    <option value="">...выберите</option>
-                    <?foreach($row['values'] as $value){
-                        $selected = $value['selected'] ? 'selected' : '';?>
-                        <option <?=$selected?> value="<?=$value['id']?>"><?=$value['title']?></option>
-                    <?}?>
-                </select>
-            <?}?>
-        </div>
+    <?if (Yii::$app->controller->action->id != 'create'){?>
+        <h3>Фильтры</h3>
+        <?foreach($filterValues as $row){?>
+            <div class="form-group">
+                <input type="hidden" name="ItemValue[<?=$row['filter_id']?>][enum]?>" value="<?=$row['enum']?>">
+                <?if ($row['enum'] == 0){?>
+                    <label class="control-label" for="ItemValue_<?=$row['filter_id']?>">
+                        <?=$row['title']?>
+                    </label>
+                    <input
+                            id="ItemValue_<?=$row['filter_id']?>"
+                            type="text"
+                            class="form-control"
+                            name="ItemValue[<?=$row['filter_id']?>][value]"
+                            value="<?=$row['value']?>"
+                    >
+                <?}
+                else{?>
+                    <label for="ItemValue_<?=$row['filter_id']?>">
+                        <?=$row['title']?>
+                    </label>
+                    <select
+                            name="ItemValue[<?=$row['filter_id']?>][value]?>"
+                            id="ItemValue_<?=$row['filter_id']?>"
+                            class="form-control"
+                    >
+                        <option value="">...выберите</option>
+                        <?foreach($row['values'] as $value){
+                            $selected = $value['selected'] ? 'selected' : '';?>
+                            <option <?=$selected?> value="<?=$value['id']?>"><?=$value['title']?></option>
+                        <?}?>
+                    </select>
+                <?}?>
+            </div>
+        <?}?>
     <?}?>
     
     <h2>Кроссы</h2>
