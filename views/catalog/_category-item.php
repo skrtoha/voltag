@@ -3,10 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
-<div class="top">
-    <h3><?=Html::a($model->article, ['/item', 'id' => $model->id])?></h3>
-    <p><?=$model->title?></p>
-</div>
+<?=Html::a('', ['/item', 'id' => $model->id], ['class' => 'wrap'])?>
 <div class="middle">
     <div class="left">
         <?if (!empty($model->itemValue)){
@@ -33,31 +30,31 @@ use yii\helpers\Url;
             <div class="image">
                 <img src="<?=Yii::$app->params['imgUrl'].$model->itemFile[0]->file->path.$model->itemFile[0]->file->title?>" alt="">
             </div>
+            <div class="info">
+                <h3><?=$model->title?></h3>
+                <p><?=Html::a($model->article, ['/item', 'id' => $model->id])?></p>
+                <div class="price">
+                    <span><?=$model->price?></span> руб.
+                </div>
+                <button>Купить</button>
+            </div>
         </div>
     <?}?>
     <div class="clearfix"></div>
 </div>
 <div class="bottom">
-    <div class="left">
-        <?if (!empty($model->itemComplect)){?>
-            <div class="complects">
-                <?foreach($model->itemComplect as $row){?>
-                    <span class="complect"><?=$row->complect->article?></span>
-                <?}?>
-            </div>
-        <?}?>
-        <?if (!empty($model->itemCar)){?>
-            <div class="cars">
-                <?foreach($model->itemCar as $row){?>
-                    <span class="car"><?=$row->car->title?></span>
-                <?}?>
-            </div>
-        <?}?>
-    </div>
-    <div class="right">
-        <div class="price">
-            <?=$model->price?> руб.
+    <?if (!empty($model->itemComplect)){?>
+        <div class="complects">
+            <?foreach($model->itemComplect as $row){?>
+                <span class="complect"><?=$row->complect->article?></span>
+            <?}?>
         </div>
-    </div>
-    <div class="clearfix"></div>
+    <?}?>
+    <?if (!empty($model->itemCar)){?>
+        <div class="cars">
+            <?foreach($model->itemCar as $row){?>
+                <span class="car"><?=$row->car->title?></span>
+            <?}?>
+        </div>
+    <?}?>
 </div>

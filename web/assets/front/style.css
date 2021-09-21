@@ -52,10 +52,16 @@ body {
 
 h1, h2, h3, h4, h5 {
     font-weight: normal;
-    font-family: din;
     margin: 0;
     padding: 0;
     color: #000
+}
+#catalog div[data-key] .complects {
+    font-size: 11px;
+    line-height: 13px;
+    width: 100%;
+    padding: 5px 0;
+    border: 1px solid #d5e2f5;
 }
 
 h1 {
