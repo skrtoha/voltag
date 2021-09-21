@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+}
+.item_info.gallery {
+    max-width: 400px;
+}
+.item_info.gallery a {
+    display: none;
+}
+.item_info.gallery a:first-child{
+    display: block;
+}
+.item_info.gallery a img{
+    width: 100%;
+}
