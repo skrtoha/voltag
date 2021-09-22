@@ -7,7 +7,10 @@ use app\models\Item;
 class ItemController extends CommonController{
     public function actionIndex(){
         $id = \Yii::$app->getRequest()->get('id');
-        $item = Item::getQueryMeta()->andWhere(['i.id' => $id])->one();
+        $item = Item::getQueryMeta()
+            ->andWhere(['i.id' => $id])
+            ->with('itemCross.item')
+            ->one();
         return $this->render('index', [
            'item' => $item
         ]);

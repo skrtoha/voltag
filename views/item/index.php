@@ -10,7 +10,7 @@ $this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\Magnif
 <div class="container" id="item">
     <h3 class="title">
         <?=\yii\helpers\Html::a(
-            "$item->brend $item->article $item->title",
+            "$item->article $item->title",
             ['/item', 'id' => $item->id]
         )?>
     </h3>
@@ -41,12 +41,62 @@ $this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\Magnif
         <?}?>
         <?if (!empty($item->itemFile)){?>
             <div class="item_info gallery">
-                <?foreach($item->itemFile as $itemFile){
-                    $src = Yii::$app->params['imgUrl'].$itemFile->file->path.$itemFile->file->title; ?>
-                    <a href="<?=$src?>">
-                        <img src="<?=$src?>" alt="">
-                    </a>
-                <?}?>
+                <div class="gallery">
+                    <?foreach($item->itemFile as $itemFile){
+                        $src = Yii::$app->params['imgUrl'].$itemFile->file->path.$itemFile->file->title; ?>
+                        <a href="<?=$src?>">
+                            <img src="<?=$src?>" alt="">
+                        </a>
+                    <?}?>
+                </div>
+                <div class="buy">
+                    <div class="price">
+                        <span><?=$item->price?></span> руб.
+                    </div>
+                    <button>Купить</button>
+                </div>
+            </div>
+        <?}?>
+        <?if (!empty($item->itemComplect)){?>
+            <div class="item_info">
+                <h4>Комплектующие</h4>
+                <ul>
+                    <?foreach($item->itemComplect as $itemComplect){?>
+                        <li>
+                            <?=\yii\helpers\Html::a(
+                                $itemComplect->complect->title.' '.$itemComplect->complect->article,
+                                ['/item', 'id' => $itemComplect->item_id_complect]
+                            )?>
+                        </li>
+                    <?}?>
+                </ul>
+            </div>
+        <?}?>
+        <?if (!empty($item->itemCross)){?>
+            <div class="item_info">
+                <h4>Кроссы</h4>
+                <ul>
+                    <?foreach($item->itemCross as $itemCross){?>
+                        <li>
+                            <?=\yii\helpers\Html::a(
+                                $itemCross->item->title.' '.$itemComplect->item->article,
+                                ['/item', 'id' => $itemCross->cross_id]
+                            )?>
+                        </li>
+                    <?}?>
+                </ul>
+            </div>
+        <?}?>
+        <?if (!empty($item->itemCar)){?>
+            <div class="item_info">
+                <h4>Применяется для автомобилей</h4>
+                <ul>
+                    <?foreach($item->itemCar as $itemCar){?>
+                        <li>
+                            <?=$itemCar->car->title?>
+                        </li>
+                    <?}?>
+                </ul>
             </div>
         <?}?>
     </div>

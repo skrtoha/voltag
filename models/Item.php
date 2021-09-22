@@ -88,6 +88,10 @@ class Item extends \yii\db\ActiveRecord
         return $this->hasMany(ItemCar::class, ['item_id' => 'id']);
     }
     
+    public function getItemCross(){
+        return $this->hasMany(ItemCross::class, ['item_id' => 'id']);
+    }
+    
     public function getItemFile(){
         return $this->hasMany(ItemFile::class, ['item_id' => 'id']);
     }
