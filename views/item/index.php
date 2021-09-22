@@ -8,12 +8,6 @@ $this->registerCssFile('/assets/front/css/item.css');
 $this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\MagnificPopupAsset']]);
 ?>
 <div class="container" id="item">
-    <h3 class="title">
-        <?=\yii\helpers\Html::a(
-            "$item->article $item->title",
-            ['/item', 'id' => $item->id]
-        )?>
-    </h3>
     <div class="wrapper">
         <?if (!empty($item->itemValue)){?>
             <div class="item_info">
@@ -49,6 +43,12 @@ $this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\Magnif
                         </a>
                     <?}?>
                 </div>
+                <h3 class="title">
+                    <?=\yii\helpers\Html::a(
+                        "$item->article $item->title",
+                        ['/item', 'id' => $item->id]
+                    )?>
+                </h3>
                 <div class="buy">
                     <div class="price">
                         <span><?=$item->price?></span> руб.

@@ -16,6 +16,10 @@
 .item_info.gallery a:first-child{
     display: block;
 }
+.item_info h3.title {
+    text-align: center;
+    font-weight: 700;
+}
 .item_info ul li{
     display: block;
 }
