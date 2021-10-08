@@ -1,4 +1,5 @@
 <?php
+session_start();
 use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -6,6 +7,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use app\assets\MagnificPopupAsset;
+use app\models\Helper;
 
 MagnificPopupAsset::register($this);
 AppAsset::register($this);
@@ -80,6 +82,10 @@ AppAsset::register($this);
             </a>
             <a href="#basket" class="basket open-popup-link">
                 <span class="icon-local_grocery_store"></span>
+                <?if ($count = Helper::getStockCommonAmountItems()){?>
+                    <i id="total_count__basket"><?=$count?></i>
+                <?}?>
+                
             </a>
         </div>
     </div>

@@ -3,7 +3,6 @@
 /* @var $item \app\models\Item */
 
 $this->title = $item->title;
-\app\models\Helper::debug($item);
 $this->registerCssFile('/assets/front/css/item.css');
 $this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\MagnificPopupAsset']]);
 ?>

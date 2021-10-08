@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
-<?=Html::a('', ['/item', 'id' => $model->id], ['class' => 'wrap'])?>
+<?=Html::a('', ['/item', 'id' => $model->id], ['class' => ['wrap']])?>
 <div class="middle">
     <div class="left">
         <?if (!empty($model->itemValue)){
@@ -36,7 +36,7 @@ use yii\helpers\Url;
                 <div class="price">
                     <span><?=$model->price?></span> руб.
                 </div>
-                <button>Купить</button>
+                <button class="add_to_stock">Купить</button>
             </div>
         </div>
     <?}?>

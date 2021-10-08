@@ -7,7 +7,6 @@ body {
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
-    padding: 0 0 60px;
 }
 
 .wrap > .container {
@@ -150,6 +149,7 @@ div[data-key] > div{
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 0;
 }
 #catalog div[data-key] .info h3 {
     text-align: center;
@@ -169,6 +169,7 @@ div[data-key] > div{
     padding: 5px;
     border: 1px solid #d5e2f5;
     margin-top: 5px;
+    position: relative;
 }
 #catalog div[data-key] .info button{
     display: block;
@@ -176,6 +177,8 @@ div[data-key] > div{
     background: #72b70f;
     color: white;
     font-size: initial;
+    z-index: 2;
+    position: relative;
 }
 #catalog .summary {
     display: none;
