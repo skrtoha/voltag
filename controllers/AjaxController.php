@@ -33,4 +33,8 @@ class AjaxController extends CommonController{
         
         return Helper::getStockCommonAmountItems();
     }
+    
+    public function actionGetBasketContent(){
+        return $_SESSION['stock'];
+    }
 }

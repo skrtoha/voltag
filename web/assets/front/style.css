@@ -9,6 +9,13 @@
     font-style: normal;
     font-display: block;
 }
+#basket_popup td.center {
+    text-align: center;
+}
+#basket_popup table td, #basket_popup table th {
+    padding: 0 5px;
+    border-bottom: 1px solid;
+}
 
 [class^="icon-"], [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */

@@ -168,6 +168,4 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endBody() ?>
-</body>
-</html>
 <?php $this->endPage() ?>

@@ -23,7 +23,6 @@ $this->title = 'Каталог';
                     </div>
                 </div>
             </div>
-            
             <div class="col-lg-9 col-sm-8">
                 <div class="sortby clearfix">
                     <div class="pull-right">
