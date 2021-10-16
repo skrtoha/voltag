@@ -16,6 +16,7 @@ use yii\db\ActiveRecord;
  * @property string $article
  * @property string $category_id
  * @property int $is_complect
+ * @property int $file_path
  *
  * @property Brend $brend
  */
@@ -37,7 +38,7 @@ class Item extends \yii\db\ActiveRecord
         return [
             [['title', 'article'], 'required'],
             [['brend_id', 'category_id', 'price'], 'integer'],
-            [['title', 'article'], 'string', 'max' => 255],
+            [['title', 'article', 'file_path'], 'string', 'max' => 255],
             [['brend_id', 'article'], 'unique', 'targetAttribute' => ['brend_id', 'article']],
             [['brend_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brend::className(), 'targetAttribute' => ['brend_id' => 'id']],
         ];
@@ -47,6 +48,7 @@ class Item extends \yii\db\ActiveRecord
         $attributes = parent::attributes();
         $attributes[] = 'brend';
         $attributes[] = 'item_id_complect';
+        $attributes[] = 'file_path';
         return $attributes;
     }
     

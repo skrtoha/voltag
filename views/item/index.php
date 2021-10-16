@@ -7,7 +7,7 @@ $this->registerCssFile('/assets/front/css/item.css');
 $this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\MagnificPopupAsset']]);
 ?>
 <div class="container" id="item">
-    <div class="wrapper">
+    <div class="wrapper" data-key="<?=$item->id?>">
         <?if (!empty($item->itemValue)){?>
             <div class="item_info">
                 <h4>Характеристики</h4>
@@ -52,7 +52,7 @@ $this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\Magnif
                     <div class="price">
                         <span><?=$item->price?></span> руб.
                     </div>
-                    <button>Купить</button>
+                    <button class="add_to_stock">Купить</button>
                 </div>
             </div>
         <?}?>

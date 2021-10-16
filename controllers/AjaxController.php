@@ -37,4 +37,13 @@ class AjaxController extends CommonController{
     public function actionGetBasketContent(){
         return $_SESSION['stock'];
     }
+    
+    public function actionChangeBasket(){
+        print_r($_GET);
+        if ($_GET['currentQuan'] == 0){
+            unset($_SESSION['stock'][$_GET['item_id']]);
+            return;
+        }
+        $_SESSION['stock'][$_GET['item_id']]['count'] = $_GET['currentQuan'];
+    }
 }
