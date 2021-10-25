@@ -56,11 +56,25 @@ $(function(){
 
     $('.icon-bin').on('click', function(){
         if (!confirm('Действительно удалить?')) return;
-        let $th = $(this);
+        let $th = $(this).closest('tr');
+        let price = + $th.find('input[name="items[price][]"]').val();
+        let count = $th.find('input[name="items[quan][]"').val();
+        let $orderTotalSumm = $('#order-total-summ');
+        let totalCount = + $orderTotalSumm.html();
+        totalCount -= price * count;
+        $orderTotalSumm.html(totalCount);
+
         $th.closest('tr').remove();
+
         ajaxApplyOrder({
             item_id: $th.closest('tr').attr('item_id'),
             currentQuan: 0
         });
+    })
+
+    $('select[name=delivery]').on('change', function(){
+        let $addressee = $('div.addressee');
+        if ($('select[name="delivery"]').val() === 'Доставка по России') $addressee.show();
+        else $addressee.hide();
     })
 })

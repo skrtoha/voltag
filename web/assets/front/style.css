@@ -220,7 +220,7 @@ table {
     font-size: 20px;
     border-radius: 20px;
 }
-form#search input[type=submit] {
+input[type=submit] {
     margin-left: -43px;
     margin-bottom: 0;
     background: #72b70f;
@@ -277,7 +277,7 @@ form#search input[type=text] {
     justify-content: space-between;
     align-items: stretch;
 }
-#search input {
+input {
     height: 45px;
     border-radius: 20px;
     border: 2px solid #d0d0d0;

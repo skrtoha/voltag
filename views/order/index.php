@@ -7,7 +7,7 @@ $this->title = 'Оформление заказа';
 \app\assets\OrderAsset::register($this);
 ?>
 <div id="order" class="container">
-    <form action="">
+    <form action="" method="post">
         <div class="order-customer">
             <div class="form-group">
                 <label for="name">Имя</label>
@@ -20,6 +20,20 @@ $this->title = 'Оформление заказа';
             <div class="form-group">
                 <label for="email">Адрес e-mail</label>
                 <input required class="form-control" id="email" type="text" name="email" value="">
+            </div>
+            <div class="form-group">
+                <label>Способ доставки</label>
+                <select class="form-control" name="delivery">
+                    <option value="Самовывоз">Самовывоз</option>
+                    <option value="Курьерская доставка по Санкт-Петербургу">
+                        Курьерская доставка по Санкт-Петербургу
+                    </option>
+                    <option value="Доставка по России">Доставка по России</option>
+                </select>
+            </div>
+            <div class="form-group addressee">
+                <label for="addressee">Адрес доставки</label>
+                <input type="text" class="form-control" id="addressee" name="addressee">
             </div>
         </div>
         <table class="order-items">
@@ -70,7 +84,6 @@ $this->title = 'Оформление заказа';
                 <td colspan="6"><b>Итого:</b> <span id="order-total-summ"><?=$totalSumm?></span> руб.</td>
             </tr>
         </table>
-        
-        
+        <input type="submit" value="Заказать">
     </form>
 </div>

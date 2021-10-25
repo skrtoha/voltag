@@ -80,3 +80,19 @@
 #order #order-total-summ{
     font-size: 23px;
 }
+#order input[type=submit]{
+    margin-left: 0;
+    margin-top: 20px;
+    margin-bottom: 0;
+    float: right;
+}
+#order input[name="items[quan][]"]{
+    border-radius: 0;
+    height: 28px;
+}
+#order div.addressee{
+    display: none;
+}
+#order select[name=delivery]{
+    display: block;
+}
