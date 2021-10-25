@@ -18,7 +18,6 @@ use Yii;
 use app\models\Item;
 use app\models\ItemSearch;
 use yii\data\ActiveDataProvider;
-use yii\debug\models\timeline\DataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;

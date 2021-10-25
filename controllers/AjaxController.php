@@ -6,9 +6,10 @@ session_start();
 use Yii;
 use app\models\Helper;
 use app\models\Item;
+use yii\base\Controller;
 use yii\web\Response;
 
-class AjaxController extends CommonController{
+class AjaxController extends Controller{
     protected $queryParams;
     public function init(){
         $this->queryParams = Helper::getQueryParams();
@@ -39,7 +40,6 @@ class AjaxController extends CommonController{
     }
     
     public function actionChangeBasket(){
-        print_r($_GET);
         if ($_GET['currentQuan'] == 0){
             unset($_SESSION['stock'][$_GET['item_id']]);
             return;

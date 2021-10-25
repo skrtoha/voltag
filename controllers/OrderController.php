@@ -5,10 +5,11 @@ use app\models\Item;
 use app\models\ItemFile;
 use app\models\Order;
 use app\models\OrderValue;
+use yii\web\Controller;
 
 session_start();
 
-class OrderController extends CommonController{
+class OrderController extends Controller {
     public function actionIndex(){
         $post = \Yii::$app->request->post();
         if (!empty($post)){
@@ -25,11 +26,13 @@ class OrderController extends CommonController{
             for($i = 0; $i < count($post['items']); $i++){
                 $orderValue = new OrderValue();
                 $orderValue->order_id = $order_id;
-                $orderValue->item_id = $post['item_id'][$i];
-                $orderValue->price = $post['price'][$i];
-                $orderValue->quan = $post['quan'][$i];
+                $orderValue->item_id = $post['items']['item_id'][$i];
+                $orderValue->price = $post['items']['price'][$i];
+                $orderValue->quan = $post['items']['quan'][$i];
                 $orderValue->save();
             }
+            unset($_SESSION['stock']);
+            return $this->redirect('order/success');
         }
         $query = Item::getQuery()
             ->leftJoin(['if' => ItemFile::tableName()], "if.item_id = i.id")
@@ -44,4 +47,7 @@ class OrderController extends CommonController{
         return $this->render('index', ['items' => $items]);
     }
     
+    public function actionSuccess(){
+        return $this->render('success');
+    }
 }

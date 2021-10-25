@@ -22,7 +22,15 @@ class OrderValue extends \yii\db\ActiveRecord
     {
         return 'order_value';
     }
-
+    
+    public function attributes(){
+        $attributes = parent::attributes();
+        $attributes[] = 'title';
+        $attributes[] = 'brend';
+        $attributes[] = 'article';
+        return $attributes;
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -43,8 +51,11 @@ class OrderValue extends \yii\db\ActiveRecord
             'id' => 'ID',
             'order_id' => 'Order ID',
             'item_id' => 'Item ID',
-            'price' => 'Price',
-            'quan' => 'Quan',
+            'price' => 'Цена',
+            'quan' => 'Количество',
+            'title' => 'Наименование',
+            'brend' => 'Бренд',
+            'article' => 'Артикул'
         ];
     }
 }

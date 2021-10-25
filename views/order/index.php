@@ -8,6 +8,7 @@ $this->title = 'Оформление заказа';
 ?>
 <div id="order" class="container">
     <form action="" method="post">
+        <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
         <div class="order-customer">
             <div class="form-group">
                 <label for="name">Имя</label>
