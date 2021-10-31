@@ -39,7 +39,7 @@ class OrderController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Order::find(),
+            'query' => Order::find()->orderBy(['inserted' => SORT_DESC]),
         ]);
 
         return $this->render('index', [

@@ -36,6 +36,17 @@ $this->title = 'Оформление заказа';
                 <label for="addressee">Адрес доставки</label>
                 <input type="text" class="form-control" id="addressee" name="addressee">
             </div>
+            <div class="form-group pay_type">
+                <label>Способ доставки</label>
+                <select class="form-control" name="pay_type">
+                    <option value="Онлайн на сайте">Онлайн на сайте</option>
+                    <option value="Наложенный платеж">Наложенный платеж</option>
+                </select>
+            </div>
+            <div class="form-group pay_type">
+                <label for="comment">Комментарий к заказу</label>
+                <input type="text" class="form-control" id="comment" name="comment">
+            </div>
         </div>
         <table class="order-items">
             <thead>

@@ -13,6 +13,10 @@ use Yii;
  * @property string|null $phone
  * @property string|null $addressee
  * @property string $delivery
+ * @property string $pay_type
+ * @property string $comment
+ * @property string $inserted
+ * @property string $updated
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -31,7 +35,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'delivery'], 'required'],
-            [['delivery'], 'string'],
+            [['delivery', 'pay_type', 'comment'], 'string'],
             [['name', 'email', 'phone', 'addressee'], 'string', 'max' => 255],
         ];
     }
@@ -48,6 +52,10 @@ class Order extends \yii\db\ActiveRecord
             'phone' => 'Телефон',
             'addressee' => 'Адрес',
             'delivery' => 'Доставка',
+            'pay_type' => 'Тип оплаты',
+            'comment' => 'Комментарий',
+            'inserted' => 'Дата добавления',
+            'updated' => 'Дата обновления'
         ];
     }
 }

@@ -19,6 +19,8 @@ class OrderController extends Controller {
             $order->phone = $post['phone'];
             $order->delivery = $post['delivery'];
             $order->addressee = $post['addressee'];
+            $order->pay_type = $post['pay_type'];
+            $order->comment = $post['comment'];
             $order->save();
             
             $order_id = \Yii::$app->db->getLastInsertID();
