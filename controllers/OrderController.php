@@ -36,6 +36,7 @@ class OrderController extends Controller {
             unset($_SESSION['stock']);
             return $this->redirect('order/success');
         }
+        if (!$_SESSION['stock']) return $this->render('index');
         $query = Item::getQuery()
             ->leftJoin(['if' => ItemFile::tableName()], "if.item_id = i.id")
             ->leftJoin(['f' => File::tableName()], "f.id = if.file_id")
