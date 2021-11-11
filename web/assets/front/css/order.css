@@ -58,6 +58,11 @@
 #order .order-counter {
     text-align: center;
 }
+#order .form-group.comment {
+    margin: 0 auto;
+    margin-top: 20px
+;
+}
 #order .item-title{
     font-size: 20px;
     color: #72b70f;

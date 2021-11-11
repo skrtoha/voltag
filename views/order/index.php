@@ -44,10 +44,6 @@ $this->title = 'Оформление заказа';
                         <option value="Наложенный платеж">Наложенный платеж</option>
                     </select>
                 </div>
-                <div class="form-group pay_type">
-                    <label for="comment">Комментарий к заказу</label>
-                    <input type="text" class="form-control" id="comment" name="comment">
-                </div>
             </div>
             <table class="order-items">
                 <thead>
@@ -97,6 +93,10 @@ $this->title = 'Оформление заказа';
                     <td colspan="6"><b>Итого:</b> <span id="order-total-summ"><?=$totalSumm?></span> руб.</td>
                 </tr>
             </table>
+            <div class="form-group comment">
+                <label for="comment">Комментарий к заказу</label>
+                <textarea  class="form-control" name="comment" cols="30" rows="10"></textarea>
+            </div>
             <input type="submit" value="Заказать">
         </form>
     <?}
