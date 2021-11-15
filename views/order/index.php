@@ -26,7 +26,7 @@ $this->title = 'Оформление заказа';
                 <div class="form-group">
                     <label>Способ доставки</label>
                     <select class="form-control" name="delivery">
-                        <option value="Самовывоз">Самовывоз</option>
+                        <option value="Самовывоз">Самовывоз (бесплатно)</option>
                         <option value="Курьерская доставка по Санкт-Петербургу">
                             Курьерская доставка по Санкт-Петербургу (500 руб.)
                         </option>
