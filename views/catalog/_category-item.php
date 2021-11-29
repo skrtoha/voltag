@@ -25,21 +25,21 @@ use yii\helpers\Url;
             <?}
         }?>
     </div>
-    <?if (!empty($model->itemFile)){?>
-        <div class="right">
+    <div class="right">
+        <?if (!empty($model->itemFile)){?>
             <div class="image">
                 <img src="<?=Yii::$app->params['imgUrl'].$model->itemFile[0]->file->path.$model->itemFile[0]->file->title?>" alt="">
             </div>
-            <div class="info">
-                <h3><?=$model->title?></h3>
-                <p><?=Html::a($model->article, ['/item', 'id' => $model->id])?></p>
-                <div class="price">
-                    <span><?=$model->price?></span> руб.
-                </div>
-                <button class="add_to_stock">Купить</button>
+        <?}?>
+        <div class="info">
+            <h3><?=$model->title?></h3>
+            <p><?=Html::a($model->article, ['/item', 'id' => $model->id])?></p>
+            <div class="price">
+                <span><?=$model->price?></span> руб.
             </div>
+            <button class="add_to_stock">Купить</button>
         </div>
-    <?}?>
+    </div>
     <div class="clearfix"></div>
 </div>
 <div class="bottom">

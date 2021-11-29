@@ -61,8 +61,8 @@ AppAsset::register($this);
     <div class="header">
         <a class="pull-left" href="/"><img src="/images/logo.png" alt="Realestate"></a>
         <div class="center">
-            <form action="<?=Url::to(['catalog/search'])?>" id="search">
-                <input type="text" name="search">
+            <form action="<?=Url::to(['catalog/index'])?>" id="search">
+                <input type="text" name="search" value="<?=$_GET['search']?>">
                 <input type="submit" value="ПОИСК">
             </form>
             <ul class="">

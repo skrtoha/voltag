@@ -142,4 +142,38 @@ class FilterValue extends \yii\db\ActiveRecord
         $filterList = Filter::getList();
         return $filterList[$this->filter_id];
     }
+    
+    public static function getFilterValues($category_id = null){
+        $filterValues = [];
+        $query = ItemValue::find()
+            ->from(['iv' => ItemValue::tableName()])
+            ->addSelect([
+                'iv.filter_id',
+                'min' => 'MIN(iv.value)',
+                'max' => 'MAX(iv.value)'
+            ])
+            ->where(['IS NOT', 'iv.value', null])
+            ->groupBy('iv.filter_id');
+        if ($category_id){
+            $query->leftJoin(['f' => Filter::tableName()], "f.id = iv.filter_id");
+            $query->andWhere(['f.category_id' => $category_id]);
+        }
+        $result = $query->asArray()->all();
+        
+        foreach($result as $value){
+            $filterValues['countable'][$value['filter_id']]['min'] = $value['min'];
+            $filterValues['countable'][$value['filter_id']]['max'] = $value['max'];
+        }
+    
+        $query = FilterValue::find()->from(['fv' => FilterValue::tableName()]);
+        if ($category_id){
+            $query->leftJoin(['f' => Filter::tableName()], 'f.id = fv.filter_id');
+            $query->andWhere(['f.category_id' => $category_id]);
+        }
+        $result = $query->asArray()->all();
+        foreach($result as $value){
+            $filterValues['uncountable'][$value['filter_id']][$value['id']] = $value['title'];
+        }
+        return $filterValues;
+    }
 }
