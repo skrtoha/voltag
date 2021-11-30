@@ -2,7 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Car;
+use app\models\Cross;
 use app\models\FilterValue;
+use app\models\ItemCar;
+use app\models\ItemCross;
 use app\models\ItemValue;
 use Yii;
 use app\models\Category;
@@ -16,6 +20,16 @@ class CatalogController extends CommonController{
         if (isset($_GET['search']) && $_GET['search']){
             $query->orWhere(['LIKE', 'i.title', $_GET['search']]);
             $query->orWhere(['i.article' => $_GET['search']]);
+    
+            $query->leftJoin(['ic' => ItemCross::tableName()], 'ic.item_id = i.id');
+            $query->leftJoin(['cr' => Cross::tableName()], 'cr.id = ic.cross_id');
+            $query->orWhere(['LIKE', 'cr.title', $_GET['search']]);
+            
+            $query->leftJoin(['icar' => ItemCar::tableName()], "icar.item_id = i.id");
+            $query->leftJoin(['car' => Car::tableName()], "car.id = icar.car_id");
+            $query->orWhere(['like', 'car.title', $_GET['search']]);
+            
+            $query->groupBy('i.id');
         }
         
         if ($sort) $query->orderBy("i.price $sort");
