@@ -55,7 +55,7 @@ class ItemComplect extends \yii\db\ActiveRecord
      */
     public function getItem()
     {
-        return $this->hasOne(Item::className(), ['id' => 'item_id']);
+        return $this->hasOne(Item::class, ['id' => 'item_id']);
     }
     
     public function getComplect()

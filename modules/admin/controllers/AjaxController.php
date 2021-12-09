@@ -31,5 +31,13 @@ class AjaxController extends \app\controllers\CommonController{
             'itemList' => $itemList
         ]);
     }
+    public function actionAddAggregateItem(){
+        $itemList = Item::getQuery()
+            ->where(['NOT IN', 'i.id', json_decode($_GET['selected'], false)])
+            ->all();
+        return $this->renderPartial('/common/aggregate-item', [
+            'itemList' => $itemList
+        ]);
+    }
     
 }

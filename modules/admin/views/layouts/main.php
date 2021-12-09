@@ -68,22 +68,23 @@ AdminAsset::register($this);
                     <h1 class="animated fadeInLeft">21:00</h1>
                     <p class="animated fadeInRight">Sat,October 1st 2029</p>
                 </li>
-                <li class="active ripple">
-                    <a class="tree-toggle nav-header"><span class="fa-home fa"></span> Магазин
-                        <span class="fa-angle-right fa right-arrow text-right"></span>
-                    </a>
-                    <ul class="nav nav-list tree">
-                        <li><?=Html::a('Категории', ['category/index'])?></li>
-                        <li><?=Html::a('Бренды', ['brend/index'])?></li>
-                        <li><?=Html::a('Товары', ['item/index'])?></li>
-                        <li><?=Html::a('Фильтры', ['filter/index'])?></li>
-                        <li><?=Html::a('Значения фильтров', ['filter-value/index'])?></li>
-                        <li><?=Html::a('Кроссы', ['cross/index'])?></li>
-                        <li><?=Html::a('Автомобили', ['car/index'])?></li>
-                        <li><?=Html::a('Заказы', ['order/index'])?></li>
-                    </ul>
-                </li>
-<!--                <li><a href="credits.html">Credits</a></li>-->
+                <?if (!Yii::$app->user->isGuest){?>
+                    <li class="active ripple">
+                        <a class="tree-toggle nav-header"><span class="fa-home fa"></span> Магазин
+                            <span class="fa-angle-right fa right-arrow text-right"></span>
+                        </a>
+                        <ul class="nav nav-list tree">
+                            <li><?=Html::a('Категории', ['category/index'])?></li>
+                            <li><?=Html::a('Бренды', ['brend/index'])?></li>
+                            <li><?=Html::a('Товары', ['item/index'])?></li>
+                            <li><?=Html::a('Фильтры', ['filter/index'])?></li>
+                            <li><?=Html::a('Значения фильтров', ['filter-value/index'])?></li>
+                            <li><?=Html::a('Кроссы', ['cross/index'])?></li>
+                            <li><?=Html::a('Автомобили', ['car/index'])?></li>
+                            <li><?=Html::a('Заказы', ['order/index'])?></li>
+                        </ul>
+                    </li>
+                <?}?>
             </ul>
         </div>
     </div>

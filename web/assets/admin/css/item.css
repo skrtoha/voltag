@@ -1,7 +1,7 @@
-#add_cross, #add_car {
+#add_cross, #add_car, #add_aggregate {
     margin-right: 10px;
 }
-div.cross-item {
+div.cross-item, div.aggregate-item {
     border: 1px solid #ddd;
     background: white;
     position: relative;
@@ -10,7 +10,7 @@ div.cross-item {
     padding-right: 20px;
 }
 
-.cross-item select{
+.cross-item select, .aggregate-item select{
     border: none;
     font-family: sans-serif;
 }

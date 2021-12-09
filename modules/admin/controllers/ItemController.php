@@ -8,6 +8,7 @@ use app\models\Category;
 use app\models\Cross;
 use app\models\File;
 use app\models\FilterValue;
+use app\models\ItemAggregate;
 use app\models\ItemCar;
 use app\models\ItemComplect;
 use app\models\ItemCross;
@@ -103,6 +104,13 @@ class ItemController extends CommonController
                 ->where(['ic.item_id' => $id])
         ]);
     
+        $itemAggregateDataProvider = new ActiveDataProvider([
+            'query' => Item::getQuery()
+                ->addSelect(['item_id_aggregate'])
+                ->leftJoin(['ia' => ItemAggregate::tableName()], "ia.item_id_aggregate = i.id")
+                ->where(['ia.item_id' => $id])
+        ]);
+    
         $imagesDataProvider = new ActiveDataProvider([
             'query' => ItemFile::getPathList(['item_id' => $id])
         ]);
@@ -113,6 +121,7 @@ class ItemController extends CommonController
             'itemCrossDataProvider' => $itemCrossDataProvider,
             'itemCarDataProvider' => $itemCarDataProvider,
             'itemComplectDataProvider' => $itemComplectDataProvider,
+            'itemAggregateDataProvider' => $itemAggregateDataProvider,
             'imagesDataProvider' => $imagesDataProvider
         ]);
     }
@@ -270,6 +279,17 @@ class ItemController extends CommonController
                 $itemComplect->save();
             }
         }
+    
+        if ($postData) ItemAggregate::deleteAll(['item_id' => $id]);
+        if (!empty(Yii::$app->request->post('ItemAggregate'))){
+            foreach(Yii::$app->request->post('ItemAggregate') as $item_id){
+                if (!$item_id) continue;
+                $itemComplect = new ItemAggregate();
+                $itemComplect->item_id = $id;
+                $itemComplect->item_id_aggregate = $item_id;
+                $itemComplect->save();
+            }
+        }
         
         if ($postData) return $this->redirect(['view', 'id' => $id]);
         
@@ -278,6 +298,13 @@ class ItemController extends CommonController
                 ->addSelect(['item_id_complect'])
                 ->leftJoin(['ic' => ItemComplect::tableName()], "ic.item_id_complect = i.id")
                 ->where(['ic.item_id' => $id])
+        ]);
+    
+        $itemAggregateDataProvider = new ActiveDataProvider([
+            'query' => Item::getQuery()
+                ->addSelect(['item_id_aggregate'])
+                ->leftJoin(['ia' => ItemAggregate::tableName()], "ia.item_id_aggregate = i.id")
+                ->where(['ia.item_id' => $id])->createCommand()->getRawSql()
         ]);
         
         $imagesDataProvider = new ActiveDataProvider([
@@ -295,6 +322,7 @@ class ItemController extends CommonController
             'crossList' => Cross::find()->all(),
             'itemCrossList' => ItemCross::find()->where(['item_id' => $id])->all(),
             'itemComplectDataProvider' => $itemComplectDataProvider,
+            'itemAggregateDataProvider' => $itemAggregateDataProvider,
             'imagesDataProvider' => $imagesDataProvider,
             'uploadForm' => new UploadForm(),
             'brendList' => Brend::getList(),

@@ -86,6 +86,10 @@ class Item extends \yii\db\ActiveRecord
         return $this->hasMany(ItemComplect::class, ['item_id' => 'id']);
     }
     
+    public function getItemAggregate(){
+        return $this->hasMany(ItemAggregate::class, ['item_id' => 'id']);
+    }
+    
     public function getItemCar(){
         return $this->hasMany(ItemCar::class, ['item_id' => 'id']);
     }
@@ -114,6 +118,7 @@ class Item extends \yii\db\ActiveRecord
             ->with('itemValue.filter')
             ->with('itemValue.filterValue')
             ->with('itemComplect.complect')
+            ->with('itemAggregate.aggregate')
             ->with('itemCar.car')
             ->with('itemFile.file');
     }

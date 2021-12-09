@@ -21,6 +21,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $uploadForm \app\models\UploadForm */
 /* @var $itemComplectDataProvider \yii\data\ActiveDataProvider */
+/* @var $itemAggregateDataProvider \yii\data\ActiveDataProvider */
 
 $this->registerJsFile('/assets/admin/js/item.js', ['depends' => ['app\assets\AdminAsset']]);
 $this->registerCssFile('/assets/admin/css/item.css')
@@ -164,6 +165,45 @@ $this->registerCssFile('/assets/admin/css/item.css')
                                     'data-pjax' => '0',
                                 ]);
                                 $output .= '<input type="hidden" name="ItemComplect[]" value="'.$model->id.'">';
+                                return $output;
+                            },
+                        ]
+                    ]
+                ]
+            ])?>
+        <?}?>
+    </div>
+
+    <h2>Аггрегаты</h2>
+    <div class="form-group">
+        <a href="#" id="add_aggregate">Добавить</a>
+        <?if (isset($itemAggregateDataProvider)){?>
+            <?=\yii\grid\GridView::widget([
+                'dataProvider' => $itemAggregateDataProvider,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'title',
+                    'brend',
+                    'article',
+                    [
+                        'class' => \yii\grid\ActionColumn::class,
+                        'urlCreator' => function($action, $model){
+                            return [
+                                "$action-complect",
+                                'id' => $_GET['id'],
+                                'item_id_complect' => $model['item_id_complect']
+                            ];
+                        },
+                        'template' => '{delete}',
+                        'buttons' => [
+                            'delete' => function ($url, $model, $key) {
+                                $output = Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                    'title' => Yii::t('yii', 'Delete'),
+                                    'data-confirm' => 'Уверены, что хотите удалить?',
+                                    'data-method' => 'post',
+                                    'data-pjax' => '0',
+                                ]);
+                                $output .= '<input type="hidden" name="ItemAggregate[]" value="'.$model->id.'">';
                                 return $output;
                             },
                         ]

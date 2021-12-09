@@ -71,6 +71,21 @@ $this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\Magnif
                 </ul>
             </div>
         <?}?>
+        <?if (!empty($item->itemAggregate)){?>
+            <div class="item_info">
+                <h4>Применяется в агрегатах</h4>
+                <ul>
+                    <?foreach($item->itemAggregate as $itemAggregate){?>
+                        <li>
+                            <?=\yii\helpers\Html::a(
+                                $itemAggregate->aggregate->title.' '.$itemAggregate->aggregate->article,
+                                ['/item', 'id' => $itemAggregate->item_id_aggregate]
+                            )?>
+                        </li>
+                    <?}?>
+                </ul>
+            </div>
+        <?}?>
         <?if (!empty($item->itemCross)){?>
             <div class="item_info">
                 <h4>Кроссы</h4>

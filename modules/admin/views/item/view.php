@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 /* @var $itemCrossDataProvider array */
 /* @var $itemCarDataProvider array */
 /* @var $itemComplectDataProvider \yii\data\ActiveDataProvider */
+/* @var $itemAggregateDataProvider \yii\data\ActiveDataProvider */
 /* @var $imagesDataProvider \yii\data\ActiveDataProvider */
 
 $this->title = $item->title;
@@ -92,6 +93,17 @@ $this->registerCssFile('/assets/admin/css/item.css')
     <h3>Комплектующие</h3>
     <?=\yii\grid\GridView::widget([
         'dataProvider' => $itemComplectDataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'title',
+            'brend',
+            'article'
+        ]
+    ])?>
+
+    <h3>Агрегаты</h3>
+    <?=\yii\grid\GridView::widget([
+        'dataProvider' => $itemAggregateDataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'title',
