@@ -209,6 +209,14 @@ class ItemController extends CommonController
         $this->redirect(['update', 'id' => $id]);
     }
     
+    public function actionDeleteAggregate($id, $item_id_aggregate){
+        ItemAggregate::deleteAll([
+            'item_id' => $id,
+            'item_id_aggregate' => $item_id_aggregate
+        ]);
+        $this->redirect(['update', 'id' => $id]);
+    }
+    
     public function actionImageDelete($item_id, $file_id){
         $fileInfo = File::find()->where(['id' => $file_id])->one();
         unlink(Yii::$app->params['imgPath'].$fileInfo['path'].$fileInfo['title']);
@@ -304,7 +312,7 @@ class ItemController extends CommonController
             'query' => Item::getQuery()
                 ->addSelect(['item_id_aggregate'])
                 ->leftJoin(['ia' => ItemAggregate::tableName()], "ia.item_id_aggregate = i.id")
-                ->where(['ia.item_id' => $id])->createCommand()->getRawSql()
+                ->where(['ia.item_id' => $id])
         ]);
         
         $imagesDataProvider = new ActiveDataProvider([

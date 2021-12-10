@@ -48,6 +48,7 @@ class Item extends \yii\db\ActiveRecord
         $attributes = parent::attributes();
         $attributes[] = 'brend';
         $attributes[] = 'item_id_complect';
+        $attributes[] = 'item_id_aggregate';
         $attributes[] = 'file_path';
         return $attributes;
     }

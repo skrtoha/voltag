@@ -189,9 +189,9 @@ $this->registerCssFile('/assets/admin/css/item.css')
                         'class' => \yii\grid\ActionColumn::class,
                         'urlCreator' => function($action, $model){
                             return [
-                                "$action-complect",
+                                "$action-aggregate",
                                 'id' => $_GET['id'],
-                                'item_id_complect' => $model['item_id_complect']
+                                'item_id_aggregate' => $model['item_id_aggregate']
                             ];
                         },
                         'template' => '{delete}',
