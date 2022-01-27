@@ -70,8 +70,8 @@ AdminAsset::register($this);
                 </li>
                 <?if (!Yii::$app->user->isGuest){?>
                     <li class="active ripple">
-                        <a class="tree-toggle nav-header"><span class="fa-home fa"></span> Магазин
-                            <span class="fa-angle-right fa right-arrow text-right"></span>
+                        <a class="tree-toggle nav-header"><span class="fa-home fa"></span>
+                            Магазин
                         </a>
                         <ul class="nav nav-list tree">
                             <li><?=Html::a('Категории', ['category/index'])?></li>
@@ -82,6 +82,9 @@ AdminAsset::register($this);
                             <li><?=Html::a('Кроссы', ['cross/index'])?></li>
                             <li><?=Html::a('Автомобили', ['car/index'])?></li>
                             <li><?=Html::a('Заказы', ['order/index'])?></li>
+                            <li><?=Html::a('Верхнее меню', ['top-menu/index'])?></li>
+                            <li><?=Html::a('Перед футером', ['before-footer/index'])?></li>
+                            <li><?=Html::a('Баннер', ['banner/index'])?></li>
                         </ul>
                     </li>
                 <?}?>

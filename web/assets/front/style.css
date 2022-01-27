@@ -662,3 +662,6 @@ div#treeCategory a {
         margin-bottom: 20px;
     }
 }
+table td{
+    padding: 15px;
+}

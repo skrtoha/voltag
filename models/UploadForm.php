@@ -23,12 +23,14 @@ class UploadForm extends Model{
         ];
     }
     
-    public function upload($item_id, $type)
+    public function upload($type, $item_id = false)
     {
-        $folder = \Yii::$app->params['imgPath'].'/items';
+        $folder = \Yii::$app->params['imgPath'].'/'.$type;
         if (!file_exists($folder)) mkdir($folder);
-        $folder .= "/$item_id";
-        if (!file_exists($folder)) mkdir($folder);
+        if ($item_id){
+            $folder .= "/$item_id";
+            if (!file_exists($folder)) mkdir($folder);
+        }
         
         if ($this->validate()) {
             foreach($this->imageFile as $file){

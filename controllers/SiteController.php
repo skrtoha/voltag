@@ -2,10 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Banner;
+use app\models\Item;
+use app\models\Text;
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
@@ -46,9 +47,15 @@ class SiteController extends CommonController
             ],
         ];
     }
-    public function actionIndex()
-    {
-        return $this->render('index');
+    public function actionIndex(){
+        $bannerList = Banner::find()->with('file')->all();
+        $newsList = Item::getQuery()->where(['is_new' => 1])->with('itemFile')->all();
+        $beforeFooter = Text::find()->where(['type' => 'before-footer'])->one();
+        return $this->render('index', [
+            'bannerList' => $bannerList,
+            'newsList' => $newsList,
+            'beforeFooter' => $beforeFooter
+        ]);
     }
     public function actionLogin()
     {

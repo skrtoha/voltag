@@ -15,8 +15,11 @@ use yii\db\ActiveRecord;
  * @property int|null $brend_id
  * @property string $article
  * @property string $category_id
+ * @property string $category
  * @property int $is_complect
  * @property int $file_path
+ * @property int $is_new
+ *
  *
  * @property Brend $brend
  */
@@ -33,20 +36,20 @@ class Item extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules(){
         return [
             [['title', 'article'], 'required'],
-            [['brend_id', 'category_id', 'price'], 'integer'],
+            [['brend_id', 'category_id', 'price', 'is_new'], 'integer'],
             [['title', 'article', 'file_path'], 'string', 'max' => 255],
             [['brend_id', 'article'], 'unique', 'targetAttribute' => ['brend_id', 'article']],
-            [['brend_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brend::className(), 'targetAttribute' => ['brend_id' => 'id']],
+            [['brend_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brend::class, 'targetAttribute' => ['brend_id' => 'id']],
         ];
     }
     
     public function attributes(){
         $attributes = parent::attributes();
         $attributes[] = 'brend';
+        $attributes[] = 'category';
         $attributes[] = 'item_id_complect';
         $attributes[] = 'item_id_aggregate';
         $attributes[] = 'file_path';
@@ -65,7 +68,8 @@ class Item extends \yii\db\ActiveRecord
             'brend' => 'Бренд',
             'article' => 'Артикул',
             'price' => 'Цена',
-            'category_id' => 'Категория'
+            'category_id' => 'Категория',
+            'is_new' => 'Это новинка'
         ];
     }
 
@@ -113,8 +117,7 @@ class Item extends \yii\db\ActiveRecord
         return $categoryList[$this->category_id];
     }
     
-    public static function getQueryMeta(): ActiveQuery
-    {
+    public static function getQueryMeta(): ActiveQuery{
         return Item::getQuery()
             ->with('itemValue.filter')
             ->with('itemValue.filterValue')
@@ -135,6 +138,7 @@ class Item extends \yii\db\ActiveRecord
                 'article' => 'i.article',
                 'price' => 'i.price',
                 'i.category_id',
+                'i.is_new',
                 'category' => 'c.title'
             ])
             ->from(['i' => Item::tableName()])

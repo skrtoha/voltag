@@ -35,3 +35,5 @@ tests/_support/_generated
 /source
 
 config/params.php
+
+/node_modules

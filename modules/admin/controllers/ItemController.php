@@ -133,6 +133,27 @@ class ItemController extends CommonController
         if ($model->save()) return $model->id;
         return false;
     }
+    
+    private function saveFiles($item_id, $type){
+        $uploadForm = new UploadForm();
+        $uploadForm->imageFile = UploadedFile::getInstances($uploadForm, 'imageFile');
+        if ($uploadForm->upload($type, $item_id)){
+            foreach($uploadForm->imageFile as $fileObject){
+                $file = new File();
+                $file->path = "/$type/$item_id/";
+                $file->title = $fileObject->getBaseName().'.'.$fileObject->getExtension();
+                $file->save();
+                
+                $file_id = \Yii::$app->db->getLastInsertID();
+                
+                $itemFile = new ItemFile();
+                $itemFile->item_id = $item_id;
+                $itemFile->file_id = $file_id;
+                $itemFile->save();
+            }
+            
+        }
+    }
 
     /**
      * Creates a new Item model.
@@ -143,7 +164,7 @@ class ItemController extends CommonController
     {
         if (Yii::$app->request->post('Item')){
             $item_id = $this->saveItem(Yii::$app->request->post('Item'));
-            $this->saveFiles($item_id);
+            $this->saveFiles($item_id, 'items');
         }
     
         if (!empty(Yii::$app->request->post('ItemCross'))){
@@ -178,27 +199,6 @@ class ItemController extends CommonController
             ),
             'brendList' => Brend::getList()
         ]);
-    }
-    
-    private function saveFiles($item_id){
-        $uploadForm = new UploadForm();
-        $uploadForm->imageFile = UploadedFile::getInstances($uploadForm, 'imageFile');
-        if ($uploadForm->upload($item_id, 'items')){
-            foreach($uploadForm->imageFile as $fileObject){
-                $file = new File();
-                $file->path = "/items/{$item_id}/";
-                $file->title = $fileObject->getBaseName().'.'.$fileObject->getExtension();
-                $file->save();
-            
-                $file_id = Yii::$app->db->getLastInsertID();
-            
-                $itemFile = new ItemFile();
-                $itemFile->item_id = $item_id;
-                $itemFile->file_id = $file_id;
-                $itemFile->save();
-            }
-        
-        }
     }
     
     public function actionDeleteComplect($id, $item_id_complect){
@@ -240,7 +240,7 @@ class ItemController extends CommonController
             $this->saveItem($postData);
         }
     
-        if ($postData) $this->saveFiles($id);
+        if ($postData) $this->saveFiles($id, 'items');
     
         if ($postData) ItemValue::deleteAll(['item_id' => $id]);
         if (!empty(Yii::$app->request->post('ItemValue'))){

@@ -62,7 +62,10 @@
 	background-color: #000;
 	opacity: 0.5; /*cange opacity for slider*/
 }
-
+ .bg-img img{
+     height: 100%;
+     width: auto;
+ }
 /* Custom navigation arrows */
 
 .nav-arrows span {

@@ -1,6 +1,8 @@
 <?php
 namespace app\assets;
-class CategoryAsset extends \yii\web\AssetBundle
+use yii\web\AssetBundle;
+
+class CategoryAsset extends AssetBundle
 {
     public $js = [
         'assets/bootstrap-treeview-1.2.0/bootstrap-treeview.js',

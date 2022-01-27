@@ -38,6 +38,8 @@ $this->registerCssFile('/assets/admin/css/item.css')
 
     <?= $form->field($model, 'article')->textInput(['maxlength' => true]) ?>
     
+    <?= $form->field($model, 'is_new')->checkbox()?>
+    
     <?= $form->field($model, 'price')->textInput() ?>
     
     <h2>Изображения</h2>
@@ -215,7 +217,7 @@ $this->registerCssFile('/assets/admin/css/item.css')
     
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
