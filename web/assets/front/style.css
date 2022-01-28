@@ -225,16 +225,16 @@ table {
     border-radius: 20px;
 }
 div.center input[type=submit] {
-    margin-left: -43px;
-    margin-bottom: 0;
     background: #72b70f;
     width: 120px;
     color: white;
     font-size: 17px;
     font-weight: 800;
     font-style: italic;
-    position: relative;
-    top: -2px;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    right: 0;
 }
 .header_telephone a{
     width: 230px;
@@ -255,7 +255,6 @@ div.center input[type=submit] {
 }
 .header_telephone {
     margin-top: 5px;
-    height: 20px;
     width: 231px;
     color: #c18e31;
 }
@@ -277,9 +276,10 @@ form#search input[type=text] {
     padding: 10px 0;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: stretch;
+    align-content: space-between;
 }
 input {
     height: 45px;
