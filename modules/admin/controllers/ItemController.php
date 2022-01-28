@@ -19,6 +19,7 @@ use Yii;
 use app\models\Item;
 use app\models\ItemSearch;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -318,6 +319,8 @@ class ItemController extends CommonController
         $imagesDataProvider = new ActiveDataProvider([
             'query' => ItemFile::getPathList(['item_id' => $id])
         ]);
+        
+        $categoryList = ArrayHelper::merge([0 => 'не указана'], Category::getCommonList());
     
         $model = $this->findModel($id);
         return $this->render('update', [
@@ -336,7 +339,7 @@ class ItemController extends CommonController
             'brendList' => Brend::getList(),
             'carList' => Car::find()->all(),
             'itemCarList' => ItemCar::getList(['item_id' => $id])->all(),
-            'categoryList' => array_merge([0 => 'не указана'], Category::getCommonList())
+            'categoryList' => $categoryList
         ]);
     }
 
@@ -355,10 +358,8 @@ class ItemController extends CommonController
     }
     
     protected function findModel($id){
-        $model = Item::find()->with('itemValue')->where(['id' => $id])->one();
-        
+        $model = Item::getQuery()->with('itemValue')->where(['i.id' => $id])->one();
         if ($model) return $model;
-        
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
