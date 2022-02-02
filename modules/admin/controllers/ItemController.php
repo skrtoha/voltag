@@ -233,8 +233,7 @@ class ItemController extends CommonController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id){
         $postData = Yii::$app->request->post('Item');
         if ($postData){
             $postData['id'] = $id;

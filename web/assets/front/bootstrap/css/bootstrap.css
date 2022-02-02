@@ -5521,7 +5521,6 @@ a.thumbnail.active {
 .list-group-item {
   position: relative;
   display: block;
-  padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #ffffff;
   border: 1px solid #dddddd;
@@ -7115,4 +7114,7 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+}
+.list-group-item{
+    padding: 5px;
 }

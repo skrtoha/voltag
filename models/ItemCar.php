@@ -44,9 +44,11 @@ class ItemCar extends \yii\db\ActiveRecord
             ->from(['ic' => self::tableName()])
             ->select([
                 'i.brend_id',
+                'item_id' => 'i.id',
                 'brend_title' => 'b.title',
                 'item_title' => 'i.title',
                 'item_article' => 'i.article',
+                'car_id' => 'c.id',
                 'car_title' => 'c.title'
             ])
             ->leftJoin(['c' => Car::tableName()], "c.id = ic.car_id")
