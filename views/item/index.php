@@ -33,7 +33,7 @@ $this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\Magnif
             </div>
         <?}?>
         <?if (!empty($item->itemFile)){?>
-            <div class="item_info gallery">
+            <div class="item_info gallery-wrapper">
                 <div class="gallery">
                     <?foreach($item->itemFile as $itemFile){
                         $src = Yii::$app->params['imgUrl'].$itemFile->file->path.$itemFile->file->title; ?>

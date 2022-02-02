@@ -7,13 +7,13 @@
     align-items: stretch;
     margin-bottom: 20px;
 }
-.item_info.gallery {
+.item_info.gallery-wrapper {
     max-width: 330px;
 }
-.item_info.gallery a {
+.item_info.gallery-wrapper a {
     display: none;
 }
-.item_info.gallery a:first-child{
+.item_info.gallery-wrapper a:first-child{
     display: block;
 }
 .item_info h3.title {
@@ -27,7 +27,7 @@
     border-top: 1px solid black;
     padding-left: 0;
 }
-.item_info.gallery a img{
+.item_info.gallery-wrapper a img{
     width: 100%;
 }
 .item_info button {
