@@ -1,0 +1,48 @@
+.wrapper {
+    display: flex;
+    padding: 15px;
+    background: white;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 20px;
+}
+.item_info.gallery-wrapper {
+    max-width: 330px;
+}
+.item_info.gallery-wrapper a {
+    display: none;
+}
+.item_info.gallery-wrapper a:first-child{
+    display: block;
+}
+.item_info h3.title {
+    text-align: center;
+    font-weight: 700;
+}
+.item_info ul li{
+    display: block;
+}
+.item_info ul{
+    border-top: 1px solid black;
+    padding-left: 0;
+}
+.item_info.gallery-wrapper a img{
+    width: 100%;
+}
+.item_info button {
+    display: block;
+    width: 100%;
+    background: #72b70f;
+    color: white;
+    font-size: initial;
+}
+.item_info .price {
+    font-weight: 800;
+    color: #b1b1b1;
+    text-align: center;
+    margin: 20px 0;
+}
+.item_info .price span {
+    font-size: 27px;
+}
