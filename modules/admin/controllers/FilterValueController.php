@@ -96,6 +96,7 @@ class FilterValueController extends CommonController
 
         return $this->render('update', [
             'model' => $model,
+            'filterList' => Filter::getList()
         ]);
     }
 
