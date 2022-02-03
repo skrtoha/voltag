@@ -1,23 +1,24 @@
 <?php
 namespace app\assets;
-class AdminAsset extends \yii\web\AssetBundle
-{
+use yii\web\AssetBundle;
+
+class AdminAsset extends AssetBundle{
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'assets/admin/css/plugins/font-awesome.min.css',
-        'assets/admin/css/plugins/simple-line-icons.css',
-        'assets/admin/css/plugins/animate.min.css',
-        'assets/admin/css/plugins/fullcalendar.min.css',
-        'assets/admin/css/style.css',
+        '/admin_assets/css/plugins/font-awesome.min.css',
+        '/admin_assets/css/plugins/simple-line-icons.css',
+        '/admin_assets/css/plugins/animate.min.css',
+        '/admin_assets/css/plugins/fullcalendar.min.css',
+        '/admin_assets/css/style.css',
     ];
     public $js = [
-        'assets/admin/js/jquery.ui.min.js',
-        'assets/admin/js/bootstrap.min.js',
-        'assets/admin/js/plugins/moment.min.js',
-        'assets/admin/js/plugins/fullcalendar.min.js',
-        'assets/admin/js/plugins/jquery.nicescroll.js',
-        'assets/admin/js/main.js'
+        '/admin_assets/js/jquery.ui.min.js',
+        '/admin_assets/js/bootstrap.min.js',
+        '/admin_assets/js/plugins/moment.min.js',
+        '/admin_assets/js/plugins/fullcalendar.min.js',
+        '/admin_assets/js/plugins/jquery.nicescroll.js',
+        '/admin_assets/js/main.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

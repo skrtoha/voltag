@@ -20,27 +20,27 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'assets/front/bootstrap/css/bootstrap.css',
-        'assets/front/style.css',
-        'assets/front/owl-carousel/owl.carousel.css',
-        'assets/front/owl-carousel/owl.theme.css',
-        'assets/front/slitslider/css/style.css',
-        'assets/front/slitslider/css/custom.css',
-        'assets/front/bootstrap/css/bootstrap.css',
-        'assets/front/css/site.css',
-        'assets/front/icomoon/icomoon.eot',
-        'assets/front/icomoon/icomoon.svg',
-        'assets/front/icomoon/icomoon.ttf',
-        'assets/front/icomoon/icomoon.woff'
+        '/front/bootstrap/css/bootstrap.css',
+        '/front/style.css',
+        '/front/owl-carousel/owl.carousel.css',
+        '/front/owl-carousel/owl.theme.css',
+        '/front/slitslider/css/style.css',
+        '/front/slitslider/css/custom.css',
+        '/front/bootstrap/css/bootstrap.css',
+        '/front/css/site.css',
+        '/front/icomoon/icomoon.eot',
+        '/front/icomoon/icomoon.svg',
+        '/front/icomoon/icomoon.ttf',
+        '/front/icomoon/icomoon.woff'
     ];
     public $js = [
-        'assets/front/bootstrap/js/bootstrap.js',
-        'assets/front/script.js',
-        'assets/front/owl-carousel/owl.carousel.js',
-        'assets/front/slitslider/js/modernizr.custom.79639.js',
-        'assets/front/slitslider/js/jquery.ba-cond.min.js',
-        'assets/front/slitslider/js/jquery.slitslider.js',
-        'assets/front/main.js'
+        '/front/bootstrap/js/bootstrap.js',
+        '/front/script.js',
+        '/front/owl-carousel/owl.carousel.js',
+        '/front/slitslider/js/modernizr.custom.79639.js',
+        '/front/slitslider/js/jquery.ba-cond.min.js',
+        '/front/slitslider/js/jquery.slitslider.js',
+        '/front/main.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
