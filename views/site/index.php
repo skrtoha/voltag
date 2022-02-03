@@ -54,6 +54,11 @@ $this->title = 'Компрессоры';
                                 <?$src = Yii::$app->params['imgUrl'].$f->path.$f->title?>
                                 <img src="<?=$src?>" class="img-responsive" alt="properties"/>
                             </div>
+                        <?}
+                        else{?>
+                            <div class="image-holder">
+                                <img class="img-responsive" src="/images/no_image.png" alt="Нет изображения">
+                            </div>
                         <?}?>
                         <h4>
                             <a href="<?=Url::to(['/item', 'id' => $item->id])?>"><?=$item->title?></a>
