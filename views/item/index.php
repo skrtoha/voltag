@@ -3,8 +3,8 @@
 /* @var $item \app\models\Item */
 
 $this->title = $item->title;
-$this->registerCssFile('/assets/front/css/item.css');
-$this->registerJsFile('/assets/front/item.js', ['depends' => ['app\assets\MagnificPopupAsset']]);
+$this->registerCssFile('/front/css/item.css');
+$this->registerJsFile('/front/item.js', ['depends' => ['app\assets\MagnificPopupAsset']]);
 ?>
 <div class="container" id="item">
     <div class="wrapper" data-key="<?=$item->id?>">
