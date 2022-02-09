@@ -25,7 +25,7 @@ $this->title = 'Каталог';
                         </script>
                     </div>
                 </div>
-                <?if (!empty($filterValues)){?>
+                <?if (!empty($filterValues['countable'])){?>
                     <div class="hot-properties hidden-xs filter_wrapper">
                         <form action="">
                             <?foreach($filterValues['countable'] as $filter_id => $fv){
