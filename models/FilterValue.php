@@ -144,7 +144,10 @@ class FilterValue extends \yii\db\ActiveRecord
     }
     
     public static function getFilterValues($category_id = null){
-        $filterValues = [];
+        $filterValues = [
+            'countable' => [],
+            'uncountable' => []
+        ];
         $query = ItemValue::find()
             ->from(['iv' => ItemValue::tableName()])
             ->addSelect([
