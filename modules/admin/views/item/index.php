@@ -12,7 +12,7 @@ use yii\widgets\Pjax;
 /* @var $model \app\models\Item */
 
 $this->title = 'Товары';
-$this->registerCssFile('/assets/admin/css/item.css');
+$this->registerCssFile('/admin_assets/css/item.css');
 ?>
 <?=$this->render('/common/pannel-title', ['title' => $this->title])?>
 <div class="item-index panel-body">

@@ -23,8 +23,8 @@ use yii\widgets\ActiveForm;
 /* @var $itemComplectDataProvider \yii\data\ActiveDataProvider */
 /* @var $itemAggregateDataProvider \yii\data\ActiveDataProvider */
 
-$this->registerJsFile('/assets/admin/js/item.js', ['depends' => ['app\assets\AdminAsset']]);
-$this->registerCssFile('/assets/admin/css/item.css')
+$this->registerJsFile('/admin_assets/js/item.js', ['depends' => ['app\assets\AdminAsset']]);
+$this->registerCssFile('/admin_assets/css/item.css')
 ?>
 
 <div class="item-form">
