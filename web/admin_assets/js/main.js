@@ -34,6 +34,7 @@ function showGif(hide = true){
         });
     };*/
 
+
     $.fn.carouselAnimate = function()
     {
         function doAnimations(elems)
