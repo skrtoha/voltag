@@ -67,7 +67,7 @@ $this->title = 'Каталог';
                     <div class="pull-right">
                         <form action="">
                             <select class="form-control" name="sort">
-                                <option>Сортировать по...</option>
+                                <option value="">Сортировать по...</option>
                                 <option <?=$sort == 'asc' ? 'selected' : ''?> value="asc">Цена: от дешовых к дорогим</option>
                                 <option <?=$sort == 'desc' ? 'selected' : ''?> value="desc">Цена: от дорогих к дешовым</option>
                             </select>

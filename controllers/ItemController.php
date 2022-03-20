@@ -8,8 +8,9 @@ class ItemController extends CommonController{
     public function actionIndex(){
         $id = \Yii::$app->getRequest()->get('id');
         $item = Item::getQueryMeta()
+            ->with('itemCross.cross.brend')
             ->andWhere(['i.id' => $id])
-            ->with('itemCross.item')
+            ->asArray()
             ->one();
         return $this->render('index', [
            'item' => $item

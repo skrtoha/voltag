@@ -38,8 +38,8 @@ class ItemCross extends \yii\db\ActiveRecord
             [['item_id', 'cross_id'], 'integer'],
             [['created'], 'safe'],
             [['item_id', 'cross_id'], 'unique', 'targetAttribute' => ['item_id', 'cross_id']],
-            [['cross_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cross::className(), 'targetAttribute' => ['cross_id' => 'id']],
-            [['item_id'], 'exist', 'skipOnError' => true, 'targetClass' => Item::className(), 'targetAttribute' => ['item_id' => 'id']],
+            [['cross_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cross::class, 'targetAttribute' => ['cross_id' => 'id']],
+            [['item_id'], 'exist', 'skipOnError' => true, 'targetClass' => Item::class, 'targetAttribute' => ['item_id' => 'id']],
         ];
     }
 
@@ -71,7 +71,7 @@ class ItemCross extends \yii\db\ActiveRecord
      */
     public function getCross()
     {
-        return $this->hasOne(Cross::className(), ['id' => 'cross_id']);
+        return $this->hasOne(Cross::class, ['id' => 'cross_id']);
     }
 
     /**
@@ -81,6 +81,6 @@ class ItemCross extends \yii\db\ActiveRecord
      */
     public function getItem()
     {
-        return $this->hasOne(Item::className(), ['id' => 'item_id']);
+        return $this->hasOne(Item::class, ['id' => 'item_id']);
     }
 }
